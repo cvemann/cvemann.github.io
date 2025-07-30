@@ -67,6 +67,10 @@ li {
   position: relative;
 }
 
+li a {
+  text-decoration: none;
+}
+
 li::before {
   content: "—";
   position: absolute;
