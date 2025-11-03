@@ -1,3 +1,6 @@
 [submodule "random-password-generator"]
 	path = random-password-generator
 	url = https://github.com/cvemann/random-password-generator.git
+[submodule "cvemann.github.io/tribute-page"]
+	path = cvemann.github.io/tribute-page
+	url = https://github.com/cvemann/tribute-page
