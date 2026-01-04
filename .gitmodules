@@ -1,8 +1,8 @@
 [submodule "random-password-generator"]
-	path = random-password-generator
+	path = projects/random-password-generator
 	url = https://github.com/cvemann/random-password-generator.git
 [submodule "tribute-page"]
-	path = tribute-page
+	path = projects/tribute-page
 	url = https://github.com/cvemann/tribute-page.git
 [submodule "projects/myleads-tracker-app"]
 	path = projects/myleads-tracker-app
