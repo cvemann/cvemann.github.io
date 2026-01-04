@@ -4,3 +4,6 @@
 [submodule "tribute-page"]
 	path = tribute-page
 	url = https://github.com/cvemann/tribute-page.git
+[submodule "projects/myleads-tracker-app"]
+	path = projects/myleads-tracker-app
+	url = https://github.com/cvemann/myleads-tracker-app.git
