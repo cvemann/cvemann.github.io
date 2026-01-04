@@ -26,6 +26,7 @@ i'm on a journey to become a skilled UI Design Engineer. this repository is host
 
 ## 🔦 projects so far.
 
+- a tribute page to myself
 - password generator – generates random passwords on click.
 - Flutterwave homepage replica.
   
@@ -37,6 +38,16 @@ each commit brings me one step closer to mastering frontend.
 stay tuned for more!
 
 ---
+
+## projects (so far)
+
+this repo serves as my ui engineering playground.
+
+all projects here are tracked as git submodules. they all live in their own repos but are referenced here for my portfolio.
+
+
+more projects coming as i keep building and learning.
+
 
 ## 💬 i'm always open to learning!
 
