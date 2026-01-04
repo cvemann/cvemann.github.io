@@ -7,9 +7,7 @@
 [submodule "projects/myleads-tracker-app"]
 	path = projects/myleads-tracker-app
 	url = https://github.com/cvemann/myleads-tracker-app.git
-[submodule "projects/flutterwave"]
-	path = projects/flutterwave
-	url = https://github.com/cvemann/flutterwave-ui-replica.git
+
 [submodule "projects/flutterwave-ui-replica"]
 	path = projects/flutterwave-ui-replica
 	url = https://github.com/cvemann/flutterwave-ui-replica
