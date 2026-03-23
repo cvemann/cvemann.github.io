@@ -7,7 +7,7 @@ welcome to my front-end projects playground!
 i'm on a journey to become a skilled UI Design Engineer. this repository is hosted using **GitHub Pages** and contains my projects as I learn HTML, CSS and JavaScript. sometimes, I learn by coding; most times, I code to learn.
 
 ## 🔗 live portfolio site
-[Visit the live site](https://cveman1.github.io)
+[Visit the live site](https://cvemann.github.io)
 
 ## 📁 what you'll find here.
 
