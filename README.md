@@ -26,11 +26,10 @@ i'm on a journey to become a skilled UI Design Engineer. this repository is host
 
 ## 🔦 projects so far.
 
-- my leads tracker app – a lightweight PWA that began as a browser extension to save and manage lead URLs locally.
 - Flutterwave homepage replica – rebuilt with only HTML and CSS.
-- password generator – generates random passwords on click.
-- unit converter – converts between metric and imperial units.
 - Tailwind CSS challenges – five small layouts built with Tailwind.
+- password generator – generates random passwords on click.
+- my leads tracker app – a lightweight PWA that began as a browser extension to save and manage lead URLs locally.
 - calculator – a working calculator with the four basic operations.
   
 ## 🚧 projects in progress
