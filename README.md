@@ -30,6 +30,10 @@ i'm on a journey to become a skilled UI Design Engineer. this repository is host
 - Flutterwave homepage replica – rebuilt with only HTML and CSS.
 - password generator – generates random passwords on click.
 - unit converter – converts between metric and imperial units.
+- Tailwind CSS challenges – five small layouts built with Tailwind.
+- row counter – counts rows and saves each count to a list.
+- basketball scoreboard – keeps score for home and guest teams.
+- calculator – a working calculator with the four basic operations.
   
 ## 🚧 projects in progress
 
