@@ -57,4 +57,4 @@ feel free to reach out to me, please: [hi@meetgodswill.com](mailto:hi@meetgodswi
 
 ---
 
-built with curiosity and caffeine by **Ukpong Godswill** ☕
+built with curiosity and caffeine by **Godswill Ukpong** ☕

@@ -182,3 +182,14 @@ h3 {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+.logo {
+  display: block;
+  color: var(--text-color);
+  margin-bottom: 32px;
+}
+
+a.logo-link {
+  display: inline-block;
+  border-bottom: none;
+}
