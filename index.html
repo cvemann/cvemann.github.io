@@ -21,7 +21,7 @@
           document.documentElement.classList.add("is-loading");
           sessionStorage.setItem("loaded", "1");
           // failsafe: never keep the page covered, even if lab.js doesn't load
-          setTimeout(function () { document.documentElement.classList.remove("is-loading", "is-loaded"); }, 4000);
+          setTimeout(function () { var r = document.documentElement; r.classList.add("loader-done"); r.classList.remove("is-loading", "is-loaded"); }, 4000);
         }
       } catch (e) {}
     </script>
@@ -44,10 +44,7 @@
   </head>
   <body>
     <div class="loader" aria-hidden="true">
-      <div class="loader-sheet">
-        <span class="loader-mark"></span>
-        <span class="loader-label"><svg class="pen" aria-hidden="true" viewBox="0 0 24 24"><path pathLength="1" d="M3.6 7.4C9 6.2 15 4.6 20.4 3.2"/><path pathLength="1" d="M3.6 11.4C9 10.2 15 8.6 20.4 7.2"/><path pathLength="1" d="M3.6 15.4C9 14.2 15 12.6 20.4 11.2"/><path pathLength="1" d="M3.8 19.4C8.6 18.4 14 17 19 15.6"/></svg>opening the lab</span>
-      </div>
+      <span class="loader-mark"><span class="loader-ink"></span><span class="loader-band"></span></span>
     </div>
     <div class="page">
       <header class="site-header">

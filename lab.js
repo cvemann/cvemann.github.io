@@ -1,11 +1,12 @@
-// Page loader: shown once per session (decided in the page head). Waits for
-// the page and fonts, but at least long enough for the pen to lay its strokes
-// and never longer than the cap; then the ink floods and the sheet lifts.
-(() => {
+// Page loader: shown once per session (decided in the page head). The logo is
+// printed by the pull (CSS); once the page and fonts are ready, and at least
+// long enough for the pull to land, the printed logo glides into the header
+// logo's exact place and hands over to it.
+function runLoader() {
   const root = document.documentElement;
   if (!root.classList.contains("is-loading")) return;
   const start = performance.now();
-  const shortest = 1150;
+  const shortest = 1150; // the pull lands at ~0.96s, then a short beat
   const longest = 2600;
 
   const pageLoaded = new Promise((resolve) => {
@@ -15,14 +16,41 @@
   const ready = Promise.all([pageLoaded, document.fonts ? document.fonts.ready : null]);
   const cap = new Promise((resolve) => setTimeout(resolve, longest));
 
+  function finish() {
+    root.classList.add("loader-done");
+    root.classList.remove("is-loading", "is-loaded");
+  }
+
+  function handOff() {
+    const mark = document.querySelector(".loader-mark");
+    const target = document.querySelector(".site-header .logo");
+    root.classList.add("is-loaded");
+    if (!mark || !target) return setTimeout(finish, 700);
+
+    const from = mark.getBoundingClientRect();
+    const to = target.getBoundingClientRect();
+    const inView = to.bottom > 0 && to.top < innerHeight;
+    if (!inView) {
+      // header is off-screen (arrived at a section link): just let the sheet fade
+      mark.style.transition = "opacity 0.4s ease";
+      mark.style.opacity = "0";
+      return setTimeout(finish, 700);
+    }
+
+    const scale = to.width / from.width;
+    mark.style.transition = "transform 0.72s cubic-bezier(0.7, 0, 0.2, 1)";
+    mark.style.transform =
+      `translate(${to.left - from.left}px, ${to.top - from.top}px) scale(${scale})`;
+    mark.addEventListener("transitionend", finish, { once: true });
+    setTimeout(finish, 1000); // in case transitionend never fires
+  }
+
   Promise.race([ready, cap]).then(() => {
     const wait = Math.max(0, shortest - (performance.now() - start));
-    setTimeout(() => {
-      root.classList.add("is-loaded");
-      setTimeout(() => root.classList.remove("is-loading", "is-loaded"), 800);
-    }, wait);
+    setTimeout(handOff, wait);
   });
-})();
+}
+runLoader();
 
 // Theme toggle: dark by default; light when the visitor picks it, remembered
 // in this browser. The label comes from CSS, so this only switches the theme
