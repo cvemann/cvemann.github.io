@@ -53,7 +53,7 @@ more projects coming as i keep building and learning.
 
 ## 💬 i'm always open to learning!
 
-feel free to open an issue or reach out to me, please.
+feel free to reach out to me, please: [hi@meetgodswill.com](mailto:hi@meetgodswill.com) · [linkedin](https://www.linkedin.com/in/cvemann) · [github](https://github.com/cvemann)
 
 ---
 
