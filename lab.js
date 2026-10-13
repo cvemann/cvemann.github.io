@@ -1,12 +1,12 @@
-// Page loader: shown once per session (decided in the page head). The letters
-// animate in (CSS); once the page and fonts are ready, and at least
+// Page loader: shown once per session (decided in the page head). The mark is
+// written by a pen (CSS); once the page and fonts are ready, and at least
 // long enough for the pull to land, the printed logo glides into the header
 // logo's exact place and hands over to it.
 function runLoader() {
   const root = document.documentElement;
   if (!root.classList.contains("is-loading")) return;
   const start = performance.now();
-  const shortest = 1500; // the letters settle at ~1.34s, then a short beat
+  const shortest = 1850; // the ink settles at ~1.7s, then a short beat
   const longest = 2600;
 
   const pageLoaded = new Promise((resolve) => {

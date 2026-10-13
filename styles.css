@@ -491,10 +491,10 @@ h1 {
   100% { stroke-dashoffset: 1.1; opacity: 0; }
 }
 
-/* page loader: once per session. the two letters come alive: U springs up,
-   G rolls in and bumps it, U rocks and settles. then the logo glides into
-   its place in the header and becomes it, while the sheet fades and the
-   page rises around it. */
+/* page loader: once per session. a pen writes the mark: it touches down,
+   the G grows along its curve, the U follows in one stroke, the ink settles.
+   then the logo glides into its place in the header and becomes it, while
+   the sheet fades and the page rises around it. */
 
 .loader {
   display: none;
@@ -539,54 +539,53 @@ h1 {
   transform-origin: 0 0;
 }
 
-.lg-u-shape,
-.lg-g-shape,
-.lg-u {
+/* the pen: a thick line through the middle of each letter, drawn in writing
+   order, reveals the letter beneath it. at the end it swells a little so
+   the ink fills every corner. */
+.pen-line {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 13;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* the dash starts just past its own end, so not even the round tip shows
+     before the pen moves */
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.08;
+}
+
+.pen-line-g {
+  animation:
+    write 0.72s cubic-bezier(0.45, 0.05, 0.35, 1) 0.32s forwards,
+    swell 0.18s ease-out 1.5s forwards;
+}
+
+.pen-line-u {
+  animation:
+    write 0.46s cubic-bezier(0.5, 0.1, 0.3, 1) 1.06s forwards,
+    swell 0.18s ease-out 1.5s forwards;
+}
+
+@keyframes write {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes swell {
+  to { stroke-width: 26; }
+}
+
+/* the pen touches down where the G begins, then the stroke takes over */
+.pen-dot {
   transform-box: fill-box;
+  transform-origin: center;
+  animation: touch 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) 0.06s both;
 }
 
-/* U springs up from below: stretches as it rises, squashes as it lands */
-.lg-u-shape {
-  transform-origin: 50% 100%;
-  animation: u-pop 0.62s 0.12s both;
-}
-
-@keyframes u-pop {
-  0% { transform: translateY(14px) scale(0.7, 0.35); opacity: 0; }
-  12% { opacity: 1; }
-  38% { transform: translateY(-5px) scale(0.88, 1.16); animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.4); }
-  62% { transform: translateY(0) scale(1.14, 0.84); }
-  80% { transform: scale(0.96, 1.05); }
-  100% { transform: none; opacity: 1; }
-}
-
-/* G rolls in from the left — about the distance its curve covers — and
-   bumps into U */
-.lg-g-shape {
-  transform-origin: 50% 50%;
-  animation: g-roll 0.72s 0.3s cubic-bezier(0.3, 0.6, 0.4, 1) both;
-}
-
-@keyframes g-roll {
-  0% { transform: translateX(-50px) rotate(-280deg); opacity: 0; }
-  15% { opacity: 1; }
-  78% { transform: translateX(1.5px) rotate(10deg); }
-  90% { transform: translateX(-0.5px) rotate(-3deg); }
-  100% { transform: none; opacity: 1; }
-}
-
-/* U takes the bump: rocks back on its heel and settles */
-.lg-u {
-  transform-origin: 100% 100%;
-  animation: u-bump 0.5s 0.84s ease-out both;
-}
-
-@keyframes u-bump {
-  0% { transform: none; }
-  30% { transform: rotate(5deg); }
-  60% { transform: rotate(-2deg); }
-  80% { transform: rotate(0.8deg); }
-  100% { transform: none; }
+@keyframes touch {
+  0% { transform: scale(0); opacity: 1; }
+  45% { transform: scale(1); opacity: 1; }
+  70% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(0.6); opacity: 0; }
 }
 
 /* the header holds still so the logo lands exactly on its spot */
