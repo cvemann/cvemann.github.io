@@ -6,8 +6,8 @@ function runLoader() {
   const root = document.documentElement;
   if (!root.classList.contains("is-loading")) return;
   const start = performance.now();
-  const shortest = 1850; // the ink settles at ~1.7s, then a short beat
-  const longest = 2600;
+  const shortest = 2650; // the ink settles at ~2.45s, then a short beat
+  const longest = 3400;
 
   const pageLoaded = new Promise((resolve) => {
     if (document.readyState === "complete") resolve();
