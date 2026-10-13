@@ -1,3 +1,31 @@
+// Theme toggle: follows the system setting until the visitor picks one,
+// then remembers it in this browser.
+(() => {
+  const button = document.querySelector(".theme-toggle");
+  if (!button) return;
+  const label = button.querySelector(".theme-label");
+  const systemDark = matchMedia("(prefers-color-scheme: dark)");
+  const root = document.documentElement;
+
+  const current = () => root.dataset.theme || (systemDark.matches ? "dark" : "light");
+
+  function render() {
+    const next = current() === "dark" ? "light" : "dark";
+    label.textContent = next;
+    button.setAttribute("aria-label", `Switch to ${next} mode`);
+  }
+
+  button.addEventListener("click", () => {
+    const next = current() === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    render();
+  });
+
+  systemDark.addEventListener("change", render);
+  render();
+})();
+
 // Project preview plate: on wide screens with a mouse, hovering (or tabbing to)
 // a project shows a larger plate in the right margin. It rides a vertical rail,
 // following the cursor up and down, and sits at a slightly worn angle.

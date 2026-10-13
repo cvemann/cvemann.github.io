@@ -13,7 +13,11 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Geist+Mono&display=swap"
     />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+    </script>
+    <script src="/lab.js" defer></script>
   </head>
   <body>
     <div class="page">
@@ -23,6 +27,9 @@
           <a href="/#projects">projects</a>
           <a href="/#learning">learning</a>
           <a href="/#contact">contact</a>
+          <button class="theme-toggle" type="button" aria-label="Switch colour theme">
+            <span class="theme-swatch" aria-hidden="true"></span><span class="theme-label">theme</span>
+          </button>
         </nav>
       </header>
 

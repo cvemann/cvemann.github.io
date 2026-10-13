@@ -1,22 +1,25 @@
 /* layout: one centred 640px column. each section is a row with a
    narrow mono label on the left and its content on the right;
    on phones the label sits above the content.
-   palette: the ink side of the Sunday Objects sheet — ink ground,
-   paper-coloured type, one accent (accent-lit), grain and -24deg hatch. */
+   palette: drawn from Sunday Objects (one sage accent, grain, -24deg hatch,
+   hard press shadows, square corners) on near-neutral graphite and paper
+   with only a trace of the logo's blue-grey. light is the base; dark comes
+   from the system setting or the toggle. */
 :root {
-  --bg: #1c1914;
-  --surface: #25211b;
-  --line: #3b352c;
-  --text: #f4f0e6;
-  --muted: #c7bfb0;
-  --faint: #a79d8e;
-  --accent: #9ccbb5;
+  --bg: #f3f4f2;
+  --surface: #e8eae7;
+  --line: #d2d6d3;
+  --text: #151a1b;
+  --muted: #4b5355;
+  --faint: #677073;
+  --accent: #3f6b59;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
 
   --hatch: repeating-linear-gradient(-24deg, var(--line) 0 1px, transparent 1px 5px);
   --hatch-ink: repeating-linear-gradient(-24deg, var(--faint) 0 1px, transparent 1px 6px);
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .96 0 0 0 0 .94 0 0 0 0 .9 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E");
 
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-sans);
   --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
   --step--2: 11px;
@@ -30,6 +33,32 @@
   --press: 4px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+  --bg: #131516;
+  --surface: #1b1f20;
+  --line: #2c3234;
+  --text: #eef0ef;
+  --muted: #b3b9ba;
+  --faint: #8a9294;
+  --accent: #9ccbb5;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .95 0 0 0 0 .95 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+  color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #131516;
+  --surface: #1b1f20;
+  --line: #2c3234;
+  --text: #eef0ef;
+  --muted: #b3b9ba;
+  --faint: #8a9294;
+  --accent: #9ccbb5;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .95 0 0 0 0 .95 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
   color-scheme: dark;
 }
 
@@ -50,6 +79,7 @@ html {
 
 body {
   background: var(--bg) var(--grain);
+  transition: background-color 0.3s ease, color 0.3s ease;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: var(--step-0);
@@ -124,6 +154,7 @@ a.logo-link {
 
 .site-nav {
   display: flex;
+  align-items: center;
   gap: 20px;
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -136,6 +167,38 @@ a.logo-link {
 
 .site-nav a:hover {
   color: var(--accent);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+/* half paper, half hatch: the two sides of the sheet */
+.theme-swatch {
+  width: 12px;
+  height: 12px;
+  border: var(--hair) solid currentColor;
+  background: linear-gradient(90deg, currentColor 0 50%, transparent 50%), var(--hatch-ink);
+  background-blend-mode: normal;
 }
 
 /* hero */
@@ -152,6 +215,7 @@ a.logo-link {
 }
 
 h1 {
+  font-family: var(--font-display);
   font-size: var(--step-1);
   font-weight: 500;
   line-height: 1.35;
@@ -208,16 +272,16 @@ h1 {
 
 .projects {
   display: grid;
-  gap: 4px;
-  margin-top: -12px;
+  gap: 20px;
+  margin-top: -16px;
 }
 
 .project {
   display: grid;
   grid-template-columns: 112px minmax(0, 1fr);
-  gap: 16px;
-  padding: 12px;
-  margin-inline: -12px;
+  gap: 20px;
+  padding: 16px;
+  margin-inline: -16px;
   isolation: isolate;
   transition: background-color 0.15s ease;
 }
@@ -285,38 +349,43 @@ h1 {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
 }
 
 .project h3 {
+  font-family: var(--font-display);
   font-size: var(--step-0);
   font-weight: 500;
 }
 
-.project-year {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  font-variant-numeric: tabular-nums;
-  color: var(--faint);
-}
-
 .project-body > p {
   color: var(--muted);
-  margin-top: 2px;
+  margin-top: 4px;
+  max-width: 46ch;
 }
 
+/* year and tags: one quiet line of facts */
 .project-meta {
-  display: grid;
-  gap: 2px;
-  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 14px;
+  margin-top: 10px;
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--faint);
+}
+
+.project-year {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
 }
 
 .project-links {
   display: flex;
-  gap: 16px;
+  flex: none;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
 }
 
 .project-links a {
@@ -536,5 +605,14 @@ h1 {
   .project {
     grid-template-columns: 88px minmax(0, 1fr);
     gap: 14px;
+  }
+
+  .project-head {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .projects {
+    gap: 12px;
   }
 }
