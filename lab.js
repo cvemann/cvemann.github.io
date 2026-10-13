@@ -243,3 +243,117 @@ runLoader();
   addEventListener("scroll", () => active && !list.matches(":hover") && hide(), { passive: true });
   addEventListener("resize", () => active && (placeRail() || hide()));
 })();
+
+// Scroll motion: M2 hero, M3 header and nav marker, M4/M5 row reveals.
+// One passive scroll listener and one rAF per frame; reveals use an
+// IntersectionObserver. Reveals only run when the page has the .motion flag
+// (set in the head when reduced motion is off).
+(() => {
+  const root = document.documentElement;
+  const header = document.querySelector(".site-header");
+  const nav = document.querySelector(".site-nav");
+  const hero = document.querySelector(".kinetic");
+  const sections = ["projects", "learning", "contact"]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+  if (!header) return;
+
+  const motion = root.classList.contains("motion");
+
+  // M3: the marker that sits under the current section's link
+  const marker = document.createElement("span");
+  marker.className = "nav-marker";
+  marker.setAttribute("aria-hidden", "true");
+  nav.append(marker);
+  const links = new Map(
+    [...nav.querySelectorAll('a[href^="#"]')].map((a) => [a.getAttribute("href").slice(1), a])
+  );
+  let current = null;
+
+  function setCurrent(id) {
+    if (id === current) return;
+    current = id;
+    links.forEach((a, key) => a.setAttribute("aria-current", String(key === id)));
+    const a = id && links.get(id);
+    if (!a) {
+      marker.style.opacity = "0";
+      return;
+    }
+    marker.style.opacity = "1";
+    marker.style.width = a.offsetWidth + "px";
+    marker.style.transform = `translateX(${a.offsetLeft}px)`;
+  }
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const y = scrollY;
+    header.classList.toggle("is-condensed", y > 120);
+
+    // the last section whose top has passed a reading line. the line slides
+    // from 40% of the screen at the top of the page to the bottom edge at the
+    // end, so every section gets its turn even on a short page
+    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const line = innerHeight * (0.4 + 0.6 * Math.min(1, y / max));
+    let id = null;
+    for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;
+    setCurrent(id);
+
+    // M2: 0 at the top, 1 once the hero has scrolled up under the header
+    if (hero && motion) {
+      const box = hero.closest(".hero").getBoundingClientRect();
+      const span = box.height + box.top + y - 80;
+      const p = Math.min(1, Math.max(0, y / Math.max(1, span)));
+      hero.style.setProperty("--hero", p.toFixed(3));
+    }
+  }
+
+  addEventListener("scroll", () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  addEventListener("resize", () => {
+    current = null;
+    update();
+  });
+  update();
+
+  if (!motion) return;
+
+  // M4/M5: give each row's items their stagger, then reveal rows as they enter
+  const rows = [...document.querySelectorAll("main .row")];
+  rows.forEach((row) => {
+    const items = row.querySelectorAll(".project, .ledger > div, .row-text > *");
+    const step = row.id === "projects" ? 80 : row.querySelector(".ledger") ? 50 : 60;
+    items.forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.setProperty("--d", 150 + i * step + "ms");
+    });
+  });
+
+  function startReveals() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("is-in");
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+    rows.forEach((row) => io.observe(row));
+  }
+
+  // wait for the loader to hand off, so nothing reveals behind it
+  if (root.classList.contains("is-loading")) {
+    const watch = new MutationObserver(() => {
+      if (!root.classList.contains("is-loading") || root.classList.contains("is-loaded")) {
+        watch.disconnect();
+        startReveals();
+      }
+    });
+    watch.observe(root, { attributes: true, attributeFilter: ["class"] });
+  } else {
+    startReveals();
+  }
+})();
