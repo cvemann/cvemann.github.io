@@ -272,7 +272,7 @@ h1 {
 
 .ledger div {
   display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-columns: 172px minmax(0, 1fr);
   gap: 16px;
   align-items: baseline;
   padding-block: 10px;
@@ -450,28 +450,113 @@ h1 {
   color: var(--faint);
 }
 
-/* in progress: the hatch keeps drying */
+/* the pen: Sunday Objects' work-in-progress mark. four -24deg strokes laid
+   one after another, then lifted. it marks everything that is ongoing. */
 
-.pending {
+.pen {
   display: inline-block;
-  width: 28px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
   margin-right: 8px;
-  vertical-align: 0;
-  border: var(--hair) solid var(--faint);
-  background: var(--hatch-ink);
+  vertical-align: -2px;
+  color: var(--accent);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  overflow: visible;
+}
+
+.pen path {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .pending {
-    animation: dry 1.1s linear infinite;
+  .pen path {
+    stroke-dashoffset: 1.1;
+    animation: lay 1.8s ease-in-out infinite;
   }
+
+  .pen path:nth-child(2) { animation-delay: 0.16s; }
+  .pen path:nth-child(3) { animation-delay: 0.32s; }
+  .pen path:nth-child(4) { animation-delay: 0.48s; }
 }
 
-@keyframes dry {
-  to {
-    background-position: 12px 0;
-  }
+@keyframes lay {
+  0% { stroke-dashoffset: 1.1; opacity: 1; }
+  28% { stroke-dashoffset: 0; }
+  78% { stroke-dashoffset: 0; opacity: 1; }
+  92% { stroke-dashoffset: 0; opacity: 0; }
+  100% { stroke-dashoffset: 1.1; opacity: 0; }
+}
+
+/* page loader: once per session. the pen lays hatch strokes into the
+   logo, the ink floods solid, then the sheet lifts off in a print pass. */
+
+.loader {
+  display: none;
+}
+
+.is-loading {
+  overflow: hidden;
+}
+
+.is-loading .loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--bg) var(--grain);
+  color: var(--text);
+  clip-path: inset(0 0 0 0);
+}
+
+.loader-mark {
+  display: block;
+  overflow: visible;
+}
+
+.loader-strokes path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.1;
+  animation: lay-in 0.42s cubic-bezier(0.5, 0, 0.3, 1) forwards;
+  animation-delay: calc(var(--i) * 28ms);
+}
+
+@keyframes lay-in {
+  to { stroke-dashoffset: 0; }
+}
+
+.loader-ink {
+  fill: currentColor;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.is-loaded .loader-ink {
+  opacity: 1;
+}
+
+.is-loaded .loader {
+  animation: lift 0.42s steps(8, end) 0.3s forwards;
+}
+
+@keyframes lift {
+  to { clip-path: inset(0 0 100% 0); }
+}
+
+/* the page waits under the sheet, then rises as it lifts */
+.is-loading:not(.is-loaded) .site-header,
+.is-loading:not(.is-loaded) .hero,
+.is-loading:not(.is-loaded) .row,
+.is-loading:not(.is-loaded) .site-footer {
+  animation-play-state: paused;
 }
 
 /* project preview plate: rides a rail in the right margin and follows

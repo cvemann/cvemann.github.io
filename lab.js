@@ -1,3 +1,29 @@
+// Page loader: shown once per session (decided in the page head). Waits for
+// the page and fonts, but at least long enough for the pen to lay its strokes
+// and never longer than the cap; then the ink floods and the sheet lifts.
+(() => {
+  const root = document.documentElement;
+  if (!root.classList.contains("is-loading")) return;
+  const start = performance.now();
+  const shortest = 1150;
+  const longest = 2600;
+
+  const pageLoaded = new Promise((resolve) => {
+    if (document.readyState === "complete") resolve();
+    else addEventListener("load", resolve, { once: true });
+  });
+  const ready = Promise.all([pageLoaded, document.fonts ? document.fonts.ready : null]);
+  const cap = new Promise((resolve) => setTimeout(resolve, longest));
+
+  Promise.race([ready, cap]).then(() => {
+    const wait = Math.max(0, shortest - (performance.now() - start));
+    setTimeout(() => {
+      root.classList.add("is-loaded");
+      setTimeout(() => root.classList.remove("is-loading", "is-loaded"), 800);
+    }, wait);
+  });
+})();
+
 // Theme toggle: dark by default; light when the visitor picks it, remembered
 // in this browser. The label comes from CSS, so this only switches the theme
 // and keeps the button's accessible name right.
