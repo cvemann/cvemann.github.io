@@ -122,3 +122,63 @@ footer {
     font-size: 28px;
   }
 }
+
+h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.project-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.project-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.project-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-card__body {
+  padding: 16px 20px 20px;
+}
+
+.project-card__body p {
+  margin-bottom: 12px;
+}
+
+.project-card__tags {
+  font-size: 13px;
+}
+
+.project-card__links {
+  display: flex;
+  gap: 20px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -14,3 +14,9 @@
 
 
 
+[submodule "projects/tailwind-CSS-challenges"]
+	path = projects/tailwind-CSS-challenges
+	url = https://github.com/cvemann/tailwind-CSS-challenges.git
+[submodule "projects/calculator-project"]
+	path = projects/calculator-project
+	url = https://github.com/cvemann/calculator-project.git
