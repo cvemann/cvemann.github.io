@@ -1,0 +1,150 @@
+// Project preview plate: on wide screens with a mouse, hovering (or tabbing to)
+// a project shows a larger plate in the right margin. It rides a vertical rail,
+// following the cursor up and down, and sits at a slightly worn angle.
+(() => {
+  const list = document.querySelector(".projects");
+  const column = document.querySelector(".page");
+  if (!list || !column) return;
+
+  const canHover = matchMedia("(hover: hover) and (pointer: fine)");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const projects = [...list.querySelectorAll(".project")];
+
+  // worn, not perfect: each plate rests at its own small angle
+  const restingTilt = [-1.4, 0.9, -0.6, 1.2, -1];
+
+  const figure = document.createElement("figure");
+  figure.className = "preview";
+  figure.setAttribute("aria-hidden", "true");
+  figure.innerHTML =
+    '<div class="preview-plate"><div class="preview-media"></div>' +
+    '<figcaption><b class="preview-no"></b><span class="preview-name"></span>' +
+    '<span class="preview-year"></span></figcaption></div>';
+  document.body.append(figure);
+
+  const media = figure.querySelector(".preview-media");
+  const number = figure.querySelector(".preview-no");
+  const name = figure.querySelector(".preview-name");
+  const year = figure.querySelector(".preview-year");
+
+  let active = null;
+  let y = 0;
+  let targetY = 0;
+  let tilt = 0;
+  let baseTilt = 0;
+  let frame = 0;
+  let preloaded = false;
+
+  const gap = 40;
+  const edge = 24;
+
+  // width of the free margin to the right of the text column, or 0 if too narrow
+  function railWidth() {
+    const right = column.getBoundingClientRect().right - parseFloat(getComputedStyle(column).paddingRight);
+    const room = innerWidth - right - gap - edge;
+    return room >= 220 ? Math.min(300, room) : 0;
+  }
+
+  function placeRail() {
+    const width = railWidth();
+    if (!width) return false;
+    const right = column.getBoundingClientRect().right - parseFloat(getComputedStyle(column).paddingRight);
+    figure.style.width = width + "px";
+    figure.style.left = right + gap + "px";
+    return true;
+  }
+
+  function clampY(centre) {
+    const h = figure.offsetHeight || 220;
+    return Math.max(edge, Math.min(innerHeight - h - edge, centre - h / 2));
+  }
+
+  function preload() {
+    if (preloaded) return;
+    preloaded = true;
+    projects.forEach((p) => {
+      const img = new Image();
+      img.src = p.querySelector("img").currentSrc || p.querySelector("img").src;
+    });
+  }
+
+  function swapImage(src) {
+    const img = document.createElement("img");
+    img.alt = "";
+    img.src = src;
+    if (media.children.length && !reduceMotion.matches) img.className = "is-new";
+    media.append(img);
+    // keep only the plate underneath and the new one
+    while (media.children.length > 2) media.firstElementChild.remove();
+    img.addEventListener("animationend", () => {
+      while (media.firstElementChild !== img) media.firstElementChild.remove();
+    }, { once: true });
+  }
+
+  function show(project, centreY) {
+    if (!canHover.matches || !placeRail()) return hide();
+    if (project === active) return;
+    const index = projects.indexOf(project);
+    const wasHidden = !active;
+    active = project;
+
+    swapImage(project.querySelector("img").currentSrc || project.querySelector("img").src);
+    number.textContent = "fig. " + String(index + 1).padStart(2, "0");
+    name.textContent = project.querySelector("h3").textContent;
+    year.textContent = project.querySelector(".project-year").textContent;
+    baseTilt = restingTilt[index % restingTilt.length];
+
+    targetY = clampY(centreY);
+    if (wasHidden) {
+      y = targetY;
+      tilt = baseTilt;
+    }
+    figure.classList.add("is-on");
+    tick();
+  }
+
+  function hide() {
+    active = null;
+    figure.classList.remove("is-on");
+  }
+
+  function tick() {
+    cancelAnimationFrame(frame);
+    const step = () => {
+      const ease = reduceMotion.matches ? 1 : 0.16;
+      y += (targetY - y) * ease;
+      // a little drag: the plate leans into the direction it's moving
+      const lean = reduceMotion.matches ? 0 : Math.max(-2.5, Math.min(2.5, (targetY - y) * 0.035));
+      tilt += (baseTilt + lean - tilt) * (reduceMotion.matches ? 1 : 0.2);
+      figure.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) rotate(${tilt.toFixed(3)}deg)`;
+      if (Math.abs(targetY - y) > 0.2 || Math.abs(baseTilt + lean - tilt) > 0.01) {
+        frame = requestAnimationFrame(step);
+      }
+    };
+    step();
+  }
+
+  list.addEventListener("pointerenter", preload);
+
+  projects.forEach((project) => {
+    project.addEventListener("pointerenter", (e) => show(project, e.clientY));
+    project.addEventListener("focusin", () => {
+      const r = project.getBoundingClientRect();
+      show(project, r.top + r.height / 2);
+    });
+  });
+
+  list.addEventListener("pointermove", (e) => {
+    if (!active) return;
+    targetY = clampY(e.clientY);
+    tick();
+  });
+
+  list.addEventListener("pointerleave", hide);
+  list.addEventListener("focusout", (e) => {
+    if (!list.contains(e.relatedTarget)) hide();
+  });
+
+  addEventListener("scroll", () => active && !list.matches(":hover") && hide(), { passive: true });
+  addEventListener("resize", () => active && (placeRail() || hide()));
+})();
