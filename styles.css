@@ -186,7 +186,7 @@ h3 {
 .logo {
   display: block;
   color: var(--text-color);
-  margin-bottom: 32px;
+  margin-bottom: 64px;
 }
 
 a.logo-link {
