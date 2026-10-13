@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Geist+Mono&display=swap"
     />
     <meta name="color-scheme" content="dark" />
     <meta name="description" content="Godswill Ukpong's front-end projects playground: HTML, CSS and JavaScript projects built on the way to becoming a UI Design Engineer." />
@@ -31,137 +31,176 @@
     <meta name="twitter:image" content="https://lab.meetgodswill.com/img/og-image.png" />
   </head>
   <body>
-    <header>
-      <svg class="logo" viewBox="3 10.5 42 27" width="44" height="28" fill="currentColor" role="img" aria-label="Godswill"><title>Godswill</title><path d="M23.7948 26.022L13.0105 25.9278C13.0105 28.632 12.764 35.1897 8.15852 32.6314C5.43936 31.121 3.39626 26.5334 5.97127 24.0243C9.62426 20.4645 18.9525 21.6467 23.6298 22.0416L23.7188 11.9151C17.1902 9.68615 6.8522 10.8729 4.32785 18.3983C3.40594 21.1465 3.42531 28.527 4.40049 31.251C7.17142 38.9898 18.2142 38.7436 22.3079 32.2474C22.3943 32.1103 22.5299 31.8667 22.6885 31.5706C23.5993 29.8724 23.9833 27.9399 23.7948 26.0224V26.022Z" /><path d="M43.3972 29.4921C44.0223 27.9139 44.3016 26.2198 44.3083 24.5224L44.3184 21.9843V21.975L44.3497 11.9036H41.3888C41.5329 12.4463 41.6775 13.1395 41.7087 13.6916C41.7337 14.1713 41.7557 14.7453 41.7654 15.3882C41.8343 19.2212 41.5519 25.4097 39.758 27.671C38.2461 29.5748 37.0512 27.4077 36.5148 25.9177C35.0155 21.7556 35.0971 16.2353 35.7776 11.9129C35.7806 11.91 35.7806 11.9066 35.7806 11.9036H25.8065C24.743 17.4209 24.8529 23.6281 27.0268 28.866C27.4723 29.9417 28.0429 31.0052 28.7268 31.9744C28.7801 32.056 28.8367 32.1376 28.8993 32.2158C29.0967 32.4981 29.3101 32.7648 29.5358 33.0189C29.6301 33.1317 29.7303 33.2416 29.8338 33.3481C31.3707 34.951 33.3028 35.9075 35.4074 35.9075C36.574 35.9075 37.6907 35.6125 38.7166 35.0765C38.7322 35.0672 38.7478 35.0575 38.7635 35.0482C39.1397 34.8508 39.507 34.6153 39.8549 34.3486C41.3575 33.217 42.5908 31.5278 43.3969 29.4921H43.3972Z" /></svg>
-      <h1>🎨 journey to amazing interactive web experiences.</h1>
-      <p class="greeting">!hola!</p>
-    </header>
+    <div class="page">
+      <header class="site-header">
+        <a href="/" class="logo-link"><svg class="logo" viewBox="3 10.5 42 27" width="44" height="28" fill="currentColor" role="img" aria-label="Godswill Ukpong, home"><title>Godswill</title><path d="M23.7948 26.022L13.0105 25.9278C13.0105 28.632 12.764 35.1897 8.15852 32.6314C5.43936 31.121 3.39626 26.5334 5.97127 24.0243C9.62426 20.4645 18.9525 21.6467 23.6298 22.0416L23.7188 11.9151C17.1902 9.68615 6.8522 10.8729 4.32785 18.3983C3.40594 21.1465 3.42531 28.527 4.40049 31.251C7.17142 38.9898 18.2142 38.7436 22.3079 32.2474C22.3943 32.1103 22.5299 31.8667 22.6885 31.5706C23.5993 29.8724 23.9833 27.9399 23.7948 26.0224V26.022Z" /><path d="M43.3972 29.4921C44.0223 27.9139 44.3016 26.2198 44.3083 24.5224L44.3184 21.9843V21.975L44.3497 11.9036H41.3888C41.5329 12.4463 41.6775 13.1395 41.7087 13.6916C41.7337 14.1713 41.7557 14.7453 41.7654 15.3882C41.8343 19.2212 41.5519 25.4097 39.758 27.671C38.2461 29.5748 37.0512 27.4077 36.5148 25.9177C35.0155 21.7556 35.0971 16.2353 35.7776 11.9129C35.7806 11.91 35.7806 11.9066 35.7806 11.9036H25.8065C24.743 17.4209 24.8529 23.6281 27.0268 28.866C27.4723 29.9417 28.0429 31.0052 28.7268 31.9744C28.7801 32.056 28.8367 32.1376 28.8993 32.2158C29.0967 32.4981 29.3101 32.7648 29.5358 33.0189C29.6301 33.1317 29.7303 33.2416 29.8338 33.3481C31.3707 34.951 33.3028 35.9075 35.4074 35.9075C36.574 35.9075 37.6907 35.6125 38.7166 35.0765C38.7322 35.0672 38.7478 35.0575 38.7635 35.0482C39.1397 34.8508 39.507 34.6153 39.8549 34.3486C41.3575 33.217 42.5908 31.5278 43.3969 29.4921H43.3972Z" /></svg></a>
+        <nav class="site-nav" aria-label="Sections">
+          <a href="#projects">projects</a>
+          <a href="#learning">learning</a>
+          <a href="#contact">contact</a>
+        </nav>
+      </header>
 
-    <main>
-      <section class="intro">
-        <h2>welcome to my front-end projects playground!</h2>
-        <p>
-          i'm Godswill, and i'm on a journey to become a skilled UI Design Engineer. below are projects i've built with HTML, CSS and
-          JavaScript along the way. sometimes, I learn by coding; most times, I code to learn.
-        </p>
-      </section>
+      <main>
+        <section class="hero">
+          <p class="eyebrow">!hola!</p>
+          <h1>journey to amazing interactive web experiences.</h1>
+          <p class="lede">
+            <strong>welcome to my front-end projects playground!</strong> i'm Godswill, and i'm on a journey to become a skilled UI
+            Design Engineer. below are projects i've built with HTML, CSS and JavaScript along the way. sometimes, I learn by
+            coding; most times, I code to learn.
+          </p>
+        </section>
 
-      <section class="current-projects">
-        <h2>🔦 projects so far.</h2>
-        <div class="project-grid">
-          <article class="project-card">
-            <img src="img/projects/flutterwave.jpg" alt="hero section of the Flutterwave homepage replica" width="960" height="600" loading="lazy" />
-            <div class="project-card__body">
-              <h3>Flutterwave homepage</h3>
+        <section class="row" id="projects" aria-labelledby="projects-label">
+          <h2 class="row-label" id="projects-label">projects</h2>
+          <ul class="projects">
+          <li class="project">
+            <a class="project-thumb" href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="img/projects/flutterwave.jpg" alt="hero section of the Flutterwave homepage replica" width="960" height="600" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-head">
+                <h3>Flutterwave homepage</h3>
+                <span class="project-year">2023</span>
+              </div>
               <p>a replica of Flutterwave's homepage, rebuilt with only HTML and CSS.</p>
-              <p class="project-card__tags">HTML · CSS</p>
-              <div class="project-card__links">
-                <a href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of Flutterwave homepage</span></a>
-                <a href="https://github.com/cvemann/flutterwave-ui-replica" target="_blank" rel="noopener">code<span class="visually-hidden"> for Flutterwave homepage</span></a>
+              <div class="project-meta">
+                <span>HTML · CSS</span>
+                <span class="project-links">
+                  <a href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of Flutterwave homepage</span> ↗</a>
+                  <a href="https://github.com/cvemann/flutterwave-ui-replica" target="_blank" rel="noopener">code<span class="visually-hidden"> for Flutterwave homepage</span> ↗</a>
+                </span>
               </div>
             </div>
-          </article>
-
-          <article class="project-card">
-            <img src="img/projects/tailwind-challenges.jpg" alt="testimonial cards for a cattery, from the Tailwind CSS challenges page" width="960" height="600" loading="lazy" />
-            <div class="project-card__body">
-              <h3>Tailwind CSS challenges</h3>
+          </li>
+          <li class="project">
+            <a class="project-thumb" href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="img/projects/tailwind-challenges.jpg" alt="testimonial cards for a cattery, from the Tailwind CSS challenges page" width="960" height="600" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-head">
+                <h3>Tailwind CSS challenges</h3>
+                <span class="project-year">2026</span>
+              </div>
               <p>five small layouts built with Tailwind: a focus timer, testimonial cards, a pricing table, a subscription form and a 404 page.</p>
-              <p class="project-card__tags">HTML · Tailwind CSS</p>
-              <div class="project-card__links">
-                <a href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of Tailwind CSS challenges</span></a>
-                <a href="https://github.com/cvemann/tailwind-CSS-challenges" target="_blank" rel="noopener">code<span class="visually-hidden"> for Tailwind CSS challenges</span></a>
+              <div class="project-meta">
+                <span>HTML · Tailwind CSS</span>
+                <span class="project-links">
+                  <a href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of Tailwind CSS challenges</span> ↗</a>
+                  <a href="https://github.com/cvemann/tailwind-CSS-challenges" target="_blank" rel="noopener">code<span class="visually-hidden"> for Tailwind CSS challenges</span> ↗</a>
+                </span>
               </div>
             </div>
-          </article>
-
-          <article class="project-card">
-            <img src="img/projects/password-generator.jpg" alt="password generator showing two generated passwords" width="960" height="600" loading="lazy" />
-            <div class="project-card__body">
-              <h3>password generator</h3>
+          </li>
+          <li class="project">
+            <a class="project-thumb" href="/projects/random-password-generator/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="img/projects/password-generator.jpg" alt="password generator showing two generated passwords" width="960" height="600" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-head">
+                <h3>password generator</h3>
+                <span class="project-year">2025</span>
+              </div>
               <p>generates two random passwords on click.</p>
-              <p class="project-card__tags">HTML · CSS · JavaScript</p>
-              <div class="project-card__links">
-                <a href="/projects/random-password-generator/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of password generator</span></a>
-                <a href="https://github.com/cvemann/random-password-generator" target="_blank" rel="noopener">code<span class="visually-hidden"> for password generator</span></a>
+              <div class="project-meta">
+                <span>HTML · CSS · JavaScript</span>
+                <span class="project-links">
+                  <a href="/projects/random-password-generator/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of password generator</span> ↗</a>
+                  <a href="https://github.com/cvemann/random-password-generator" target="_blank" rel="noopener">code<span class="visually-hidden"> for password generator</span> ↗</a>
+                </span>
               </div>
             </div>
-          </article>
-
-          <article class="project-card">
-            <img src="img/projects/myleads-tracker.jpg" alt="my leads tracker app with three saved lead links" width="960" height="600" loading="lazy" />
-            <div class="project-card__body">
-              <h3>my leads tracker</h3>
+          </li>
+          <li class="project">
+            <a class="project-thumb" href="/projects/myleads-tracker-app/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="img/projects/myleads-tracker.jpg" alt="my leads tracker app with three saved lead links" width="960" height="600" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-head">
+                <h3>my leads tracker</h3>
+                <span class="project-year">2026</span>
+              </div>
               <p>a lightweight PWA that began as a browser extension. it saves and manages lead URLs, synced with Firebase.</p>
-              <p class="project-card__tags">JavaScript · Firebase · PWA</p>
-              <div class="project-card__links">
-                <a href="/projects/myleads-tracker-app/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of my leads tracker</span></a>
-                <a href="https://github.com/cvemann/myleads-tracker-app" target="_blank" rel="noopener">code<span class="visually-hidden"> for my leads tracker</span></a>
+              <div class="project-meta">
+                <span>JavaScript · Firebase · PWA</span>
+                <span class="project-links">
+                  <a href="/projects/myleads-tracker-app/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of my leads tracker</span> ↗</a>
+                  <a href="https://github.com/cvemann/myleads-tracker-app" target="_blank" rel="noopener">code<span class="visually-hidden"> for my leads tracker</span> ↗</a>
+                </span>
               </div>
             </div>
-          </article>
-
-          <article class="project-card">
-            <img src="img/projects/calculator.jpg" alt="calculator keypad with 128 on the display" width="960" height="600" loading="lazy" />
-            <div class="project-card__body">
-              <h3>calculator</h3>
+          </li>
+          <li class="project">
+            <a class="project-thumb" href="/projects/calculator-project/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="img/projects/calculator.jpg" alt="calculator keypad with 128 on the display" width="960" height="600" loading="lazy" />
+            </a>
+            <div class="project-body">
+              <div class="project-head">
+                <h3>calculator</h3>
+                <span class="project-year">2025</span>
+              </div>
               <p>a working calculator built to practise JavaScript, with clear, backspace and the four basic operations.</p>
-              <p class="project-card__tags">HTML · CSS · JavaScript</p>
-              <div class="project-card__links">
-                <a href="/projects/calculator-project/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of calculator</span></a>
-                <a href="https://github.com/cvemann/calculator-project" target="_blank" rel="noopener">code<span class="visually-hidden"> for calculator</span></a>
+              <div class="project-meta">
+                <span>HTML · CSS · JavaScript</span>
+                <span class="project-links">
+                  <a href="/projects/calculator-project/" target="_blank" rel="noopener">live demo<span class="visually-hidden"> of calculator</span> ↗</a>
+                  <a href="https://github.com/cvemann/calculator-project" target="_blank" rel="noopener">code<span class="visually-hidden"> for calculator</span> ↗</a>
+                </span>
               </div>
             </div>
-          </article>
-        </div>
-
-        <!--
+          </li>
+          </ul>
+          <!--
           <li>my tribute page - a tribute to me <a target="_blank" href="/projects/tribute-page/"> {View project} </a></li> -->
-      </section>
+        </section>
 
-      <section class="content-overview">
-        <h2>📁 what you'll find here.</h2>
-        <ul>
-          <li>small interactive projects</li>
-          <li>flexbox and layout practice</li>
-          <li>anything else I explore while learning to code.</li>
-        </ul>
-      </section>
+        <section class="row" aria-labelledby="here-label">
+          <h2 class="row-label" id="here-label">what's here</h2>
+          <ul class="plain-list">
+            <li>small interactive projects</li>
+            <li>flexbox and layout practice</li>
+            <li>anything else I explore while learning to code.</li>
+          </ul>
+        </section>
 
-      <section class="learning">
-        <h2>🧠 what i'm learning.</h2>
-        <ul>
-          <li>writing clean, semantic HTML</li>
-          <li>styling with CSS and making the web responsive</li>
-          <li>adding interactivity with JavaScript</li>
-          <li>implementing accessible code</li>
-          <li>using Git and GitHub for version control and collaboration</li>
-        </ul>
-      </section>
+        <section class="row" id="learning" aria-labelledby="learning-label">
+          <h2 class="row-label" id="learning-label">learning</h2>
+          <ul class="plain-list">
+            <li>writing clean, semantic HTML</li>
+            <li>styling with CSS and making the web responsive</li>
+            <li>adding interactivity with JavaScript</li>
+            <li>implementing accessible code</li>
+            <li>using Git and GitHub for version control and collaboration</li>
+          </ul>
+        </section>
 
-      
+        <section class="row" aria-labelledby="progress-label">
+          <h2 class="row-label" id="progress-label">in progress</h2>
+          <div class="row-text">
+            <p><strong>design system</strong> – putting together a component library.</p>
+            <p>each commit brings me one step closer to mastering frontend. stay tuned for more!</p>
+          </div>
+        </section>
 
-      <section class="upcoming-projects">
-        <h2>🚧 projects in progress</h2>
-        <p>design system – putting together a component library.</p>
-        <p>each commit brings me one step closer to mastering frontend.</p>
-        <p>stay tuned for more!</p>
-      </section>
+        <section class="row" id="contact" aria-labelledby="contact-label">
+          <h2 class="row-label" id="contact-label">contact</h2>
+          <div class="row-text">
+            <p>i'm always open to learning! feel free to reach out to me, please.</p>
+            <ul class="contact-links">
+              <li><a href="mailto:hi@meetgodswill.com">hi@meetgodswill.com</a></li>
+              <li><a href="https://www.linkedin.com/in/gmukpong" target="_blank" rel="noopener">linkedin</a></li>
+              <li><a href="https://github.com/cvemann" target="_blank" rel="noopener">github</a></li>
+              <li><a href="https://meetgodswill.com" target="_blank" rel="noopener">design portfolio</a></li>
+            </ul>
+          </div>
+        </section>
+      </main>
 
-      <section class="contact">
-        <h2>💬 i'm always open to learning!</h2>
-        <p>feel free to reach out to me, please.</p>
-        <ul class="contact-links">
-          <li><a href="mailto:hi@meetgodswill.com">hi@meetgodswill.com</a></li>
-          <li><a href="https://www.linkedin.com/in/gmukpong" target="_blank" rel="noopener">linkedin</a></li>
-          <li><a href="https://github.com/cvemann" target="_blank" rel="noopener">github</a></li>
-          <li><a href="https://meetgodswill.com" target="_blank" rel="noopener">design portfolio</a></li>
-        </ul>
-      </section>
-    </main>
-
-    <footer>
-      <p>built with curiosity and caffeine by Godswill Ukpong ☕</p>
-    </footer>
+      <footer class="site-footer">
+        <p>built with curiosity and caffeine by Godswill Ukpong ☕</p>
+        <p>lab.meetgodswill.com</p>
+      </footer>
+    </div>
   </body>
 </html>
