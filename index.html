@@ -16,6 +16,7 @@
     <meta name="color-scheme" content="dark light" />
     <script>
       try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion");
       try {
         if (!sessionStorage.getItem("loaded") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
           document.documentElement.classList.add("is-loading");
@@ -79,7 +80,7 @@
       <main>
         <section class="hero">
           <p class="eyebrow">!hola!</p>
-          <h1>journey to amazing interactive web experiences.</h1>
+          <h1 class="kinetic"><span class="w"><span style="--i:0">journey</span></span> <span class="w"><span style="--i:1">to</span></span> <span class="w"><span style="--i:2">amazing</span></span> <span class="w"><span style="--i:3">interactive</span></span> <span class="w"><span style="--i:4">web</span></span> <span class="w"><span style="--i:5">experiences.</span></span></h1>
           <p class="lede">
             <strong>welcome to my front-end projects playground!</strong> i'm Godswill, and i'm on a journey to become a skilled UI
             Design Engineer. below are projects i've built with HTML, CSS and JavaScript along the way. sometimes, I learn by

@@ -65,7 +65,7 @@ html {
 }
 
 body {
-  background: var(--bg) var(--grain);
+  background: var(--bg) var(--grain) fixed;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: var(--step-0);
@@ -118,12 +118,29 @@ a:focus-visible {
 
 /* header */
 
+/* M3 navigation: the header sticks, and condenses once you start reading */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 112px;
+  margin: 0 -20px 112px;
+  padding: 20px;
+  background: transparent;
+  transition:
+    padding 0.24s ease-out,
+    background-color 0.24s ease-out,
+    box-shadow 0.24s ease-out;
+}
+
+.site-header.is-condensed {
+  padding-block: 10px;
+  /* same grain, pinned to the window, so the header is the page, not a slab */
+  background: var(--bg) var(--grain) fixed;
+  box-shadow: 0 1px 0 var(--line);
 }
 
 a.logo-link {
@@ -136,6 +153,41 @@ a.logo-link {
   width: 32px;
   height: auto;
   color: var(--text);
+  transform-origin: 0 50%;
+  transition: transform 0.24s ease-out;
+}
+
+.is-condensed .logo {
+  transform: scale(0.75);
+}
+
+/* the marker under the current section's link: a short band of hatch */
+.site-nav {
+  position: relative;
+}
+
+.nav-marker {
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 0;
+  height: 3px;
+  background: repeating-linear-gradient(-24deg, var(--accent) 0 1px, transparent 1px 3px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.32s cubic-bezier(0.65, 0, 0.35, 1),
+    width 0.32s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.2s ease;
+}
+
+.site-nav a[aria-current="true"] {
+  color: var(--text);
+}
+
+/* land below the sticky header when jumping to a section */
+main > section[id] {
+  scroll-margin-top: 72px;
 }
 
 .site-nav {
@@ -217,6 +269,36 @@ a.logo-link {
   margin-bottom: 16px;
 }
 
+/* M2 kinetic hero: each word rises out of its own mask, then the line is
+   pressed tighter and fades as you scroll past it (lab.js sets --hero) */
+.kinetic {
+  --hero: 0;
+  transform: translateY(calc(var(--hero) * -40px));
+  opacity: calc(1 - var(--hero) * 0.65);
+  letter-spacing: calc(-0.02em - var(--hero) * 0.025em) !important;
+}
+
+.kinetic .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.kinetic .w > span {
+  display: inline-block;
+}
+
+.motion .kinetic .w > span {
+  animation: word-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(0.1s + var(--i) * 45ms);
+}
+
+@keyframes word-in {
+  from { transform: translateY(105%); }
+}
+
 h1 {
   font-family: var(--font-display);
   font-size: var(--step-1);
@@ -236,11 +318,70 @@ h1 {
 /* section rows */
 
 .row {
+  position: relative;
   display: grid;
   grid-template-columns: var(--rail) minmax(0, 1fr);
   gap: 24px;
   padding-block: 28px;
   border-top: 1px solid var(--line);
+}
+
+/* M4 section rows: the divider draws left to right, the label slides in,
+   then the row's contents rise in a stagger (lab.js adds .is-in and the
+   per-item delay --d). only when motion is allowed. */
+.motion .row {
+  border-top-color: transparent;
+}
+
+.motion .row::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.motion .row-label {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.5s var(--ease) 0.1s, transform 0.5s var(--ease) 0.1s;
+}
+
+.motion .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.6s var(--ease) var(--d, 0ms),
+    transform 0.6s var(--ease) var(--d, 0ms),
+    background-color 0.15s ease;
+}
+
+.motion .row.is-in::before {
+  transform: scaleX(1);
+}
+
+.motion .row.is-in .row-label,
+.motion .row.is-in .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* M5 projects: each thumbnail prints in with an 8-step pass, just after
+   its row rises */
+.motion .project .project-thumb img {
+  clip-path: inset(0 100% 0 0);
+  transition:
+    opacity 0.15s ease,
+    clip-path 0.32s steps(8, end) calc(var(--d, 0ms) + 0.2s);
+}
+
+.motion .row.is-in .project .project-thumb img {
+  clip-path: inset(0 0 0 0);
 }
 
 .row-label {
@@ -700,8 +841,9 @@ h1 {
 }
 
 /* the rest of the page waits under the sheet, then rises as it fades */
-.is-loading:not(.is-loaded) .hero,
-.is-loading:not(.is-loaded) .row,
+.is-loading:not(.is-loaded) .eyebrow,
+.is-loading:not(.is-loaded) .lede,
+.is-loading:not(.is-loaded) .kinetic .w > span,
 .is-loading:not(.is-loaded) .site-footer {
   animation-play-state: paused;
 }
@@ -817,23 +959,29 @@ h1 {
   white-space: nowrap;
 }
 
-/* load-in: each block rises into place once, in order */
+/* load-in: the header, the hero's eyebrow and lede, and the footer rise once;
+   the hero's words and the section rows have their own motion */
 
 @media (prefers-reduced-motion: no-preference) {
   .site-header,
-  .hero,
-  .row,
+  .eyebrow,
+  .lede,
   .site-footer {
     animation: rise 0.7s var(--ease) both;
   }
 
-  .hero { animation-delay: 0.06s; }
-  .row:nth-of-type(2) { animation-delay: 0.12s; }
-  .row:nth-of-type(3) { animation-delay: 0.16s; }
-  .row:nth-of-type(4) { animation-delay: 0.2s; }
-  .row:nth-of-type(5) { animation-delay: 0.24s; }
-  .row:nth-of-type(6) { animation-delay: 0.28s; }
-  .site-footer { animation-delay: 0.32s; }
+  .eyebrow { animation-delay: 0.04s; }
+  .lede { animation-delay: 0.45s; }
+  .site-footer { animation-delay: 0.3s; }
+}
+
+/* M7 reduced motion: nothing moves; everything is simply there */
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .logo,
+  .nav-marker {
+    transition: none;
+  }
 }
 
 @keyframes rise {
@@ -848,6 +996,7 @@ h1 {
 @media (max-width: 600px) {
   .site-header {
     margin-bottom: 72px;
+    gap: 16px;
   }
 
   .hero {
