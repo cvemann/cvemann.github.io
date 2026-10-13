@@ -15,10 +15,10 @@
 
 html {
   background: var(--bg-color);
-  color: var(--text-color);
 }
 
 body {
+  color: var(--text-color);
   font-family: var(--font-main);
   font-size: 15px;
   line-height: 1.5;
