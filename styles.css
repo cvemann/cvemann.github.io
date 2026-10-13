@@ -1,19 +1,21 @@
 /* layout: one centred 640px column. each section is a row with a
    narrow mono label on the left and its content on the right;
    on phones the label sits above the content.
-   palette: drawn from Sunday Objects (one sage accent, grain, -24deg hatch,
+   palette: drawn from Sunday Objects (one accent, grain, -24deg hatch,
    hard press shadows, square corners) on near-neutral graphite and paper
-   with only a trace of the logo's blue-grey. light is the base; dark comes
-   from the system setting or the toggle. */
+   with only a trace of blue-grey. dark is the default; light is
+   chosen with the toggle. accent: the brand cyan from the logo. */
 :root {
-  --bg: #f3f4f2;
-  --surface: #e8eae7;
-  --line: #d2d6d3;
-  --text: #151a1b;
-  --muted: #4b5355;
-  --faint: #677073;
-  --accent: #3f6b59;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  --bg: #131516;
+  --surface: #1b1f20;
+  --line: #2c3234;
+  --text: #eef0ef;
+  --muted: #b3b9ba;
+  --faint: #8a9294;
+  --accent: #00d4ff;
+  --brand: #00d4ff;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .95 0 0 0 0 .95 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+  color-scheme: dark;
 
   --hatch: repeating-linear-gradient(-24deg, var(--line) 0 1px, transparent 1px 5px);
   --hatch-ink: repeating-linear-gradient(-24deg, var(--faint) 0 1px, transparent 1px 6px);
@@ -27,39 +29,26 @@
   --step-0: 14px;
   --step-1: 20px;
 
-  --rail: 112px;
+  --rail: 96px;
   --rule: 2px;
   --hair: 1px;
   --press: 4px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
 
+/* light: chosen with the toggle. the brand cyan is deepened here
+   so links stay readable on paper. */
+:root[data-theme="light"] {
+  --bg: #f3f4f2;
+  --surface: #e8eae7;
+  --line: #d2d6d3;
+  --text: #151a1b;
+  --muted: #4b5355;
+  --faint: #677073;
+  --accent: #007a94;
+  --brand: #0089a8;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
   color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-  --bg: #131516;
-  --surface: #1b1f20;
-  --line: #2c3234;
-  --text: #eef0ef;
-  --muted: #b3b9ba;
-  --faint: #8a9294;
-  --accent: #9ccbb5;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .95 0 0 0 0 .95 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
-  color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #131516;
-  --surface: #1b1f20;
-  --line: #2c3234;
-  --text: #eef0ef;
-  --muted: #b3b9ba;
-  --faint: #8a9294;
-  --accent: #9ccbb5;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .95 0 0 0 0 .95 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
-  color-scheme: dark;
 }
 
 *,
@@ -79,7 +68,6 @@ html {
 
 body {
   background: var(--bg) var(--grain);
-  transition: background-color 0.3s ease, color 0.3s ease;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: var(--step-0);
@@ -124,7 +112,7 @@ a:focus-visible {
 }
 
 .page {
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
   padding-block: 40px 32px;
   padding-inline: 20px;
@@ -149,7 +137,7 @@ a.logo-link {
   display: block;
   width: 32px;
   height: auto;
-  color: var(--text);
+  color: var(--brand);
 }
 
 .site-nav {
@@ -173,8 +161,10 @@ a.logo-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 0;
+  margin-left: 4px;
+  padding: 4px 0 4px 20px;
   border: 0;
+  border-left: var(--hair) solid var(--line);
   background: none;
   color: var(--muted);
   font: inherit;
@@ -190,6 +180,21 @@ a.logo-link {
 .theme-toggle:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+/* the label names the mode you'd switch to. it comes from CSS so it is
+   right before any script runs, and a fixed width keeps the nav still. */
+.theme-label {
+  display: inline-block;
+  width: 5ch;
+}
+
+.theme-label::before {
+  content: "light";
+}
+
+:root[data-theme="light"] .theme-label::before {
+  content: "dark";
 }
 
 /* half paper, half hatch: the two sides of the sheet */
@@ -278,7 +283,8 @@ h1 {
 
 .project {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
+  grid-template-columns: 157px minmax(0, 1fr);
+  align-items: start;
   gap: 20px;
   padding: 16px;
   margin-inline: -16px;
@@ -358,10 +364,15 @@ h1 {
   font-weight: 500;
 }
 
-.project-body > p {
+/* two lines at most, so every row (and every preview) is the same height */
+.project-body > p:not(.project-meta) {
   color: var(--muted);
   margin-top: 4px;
-  max-width: 46ch;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 
 /* year and tags: one quiet line of facts */
@@ -369,15 +380,10 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0 14px;
-  margin-top: 10px;
+  margin-top: 8px;
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--faint);
-}
-
-.project-year {
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
 }
 
 .project-links {
@@ -612,7 +618,20 @@ h1 {
     gap: 2px;
   }
 
+  /* phones: the column is too narrow for two lines, so show it all */
+  .project-body > p:not(.project-meta) {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: none;
+  }
+
   .projects {
     gap: 12px;
   }
+}
+
+/* theme switch: one crossfade for the whole page (where supported) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
 }

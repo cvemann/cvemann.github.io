@@ -13,7 +13,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Geist+Mono&display=swap"
     />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="dark light" />
     <script>
       try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
     </script>
@@ -42,8 +42,8 @@
           <a href="#projects">projects</a>
           <a href="#learning">learning</a>
           <a href="#contact">contact</a>
-          <button class="theme-toggle" type="button" aria-label="Switch colour theme">
-            <span class="theme-swatch" aria-hidden="true"></span><span class="theme-label">theme</span>
+          <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+            <span class="theme-swatch" aria-hidden="true"></span><span class="theme-label" aria-hidden="true"></span>
           </button>
         </nav>
       </header>
@@ -62,7 +62,7 @@
         <section class="row" id="projects" aria-labelledby="projects-label">
           <h2 class="row-label" id="projects-label">projects</h2>
           <ul class="projects">
-          <li class="project">
+          <li class="project" data-year="2023">
             <a class="project-thumb" href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
               <img src="img/projects/flutterwave.jpg" alt="hero section of the Flutterwave homepage replica" width="960" height="600" loading="lazy" />
             </a>
@@ -70,15 +70,15 @@
               <div class="project-head">
                 <h3>Flutterwave homepage</h3>
                 <span class="project-links">
-                  <a href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener">open<span class="visually-hidden"> Flutterwave homepage</span> ↗</a>
+                  <a href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener">visit<span class="visually-hidden"> Flutterwave homepage</span> ↗</a>
                   <a href="https://github.com/cvemann/flutterwave-ui-replica" target="_blank" rel="noopener">code<span class="visually-hidden"> for Flutterwave homepage</span> ↗</a>
                 </span>
               </div>
               <p>a replica of Flutterwave's homepage, rebuilt with only HTML and CSS.</p>
-              <p class="project-meta"><span class="project-year">2023</span><span>HTML</span><span>CSS</span></p>
+              <p class="project-meta"><span>HTML</span><span>CSS</span></p>
             </div>
           </li>
-          <li class="project">
+          <li class="project" data-year="2026">
             <a class="project-thumb" href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
               <img src="img/projects/tailwind-challenges.jpg" alt="testimonial cards for a cattery, from the Tailwind CSS challenges page" width="960" height="600" loading="lazy" />
             </a>
@@ -86,15 +86,15 @@
               <div class="project-head">
                 <h3>Tailwind CSS challenges</h3>
                 <span class="project-links">
-                  <a href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener">open<span class="visually-hidden"> Tailwind CSS challenges</span> ↗</a>
+                  <a href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener">visit<span class="visually-hidden"> Tailwind CSS challenges</span> ↗</a>
                   <a href="https://github.com/cvemann/tailwind-CSS-challenges" target="_blank" rel="noopener">code<span class="visually-hidden"> for Tailwind CSS challenges</span> ↗</a>
                 </span>
               </div>
-              <p>five small layouts built with Tailwind: a focus timer, testimonial cards, a pricing table, a subscription form and a 404 page.</p>
-              <p class="project-meta"><span class="project-year">2026</span><span>HTML</span><span>Tailwind CSS</span></p>
+              <p>five Tailwind layouts: a focus timer, testimonial cards, a pricing table, a form and a 404 page.</p>
+              <p class="project-meta"><span>HTML</span><span>Tailwind CSS</span></p>
             </div>
           </li>
-          <li class="project">
+          <li class="project" data-year="2025">
             <a class="project-thumb" href="/projects/random-password-generator/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
               <img src="img/projects/password-generator.jpg" alt="password generator showing two generated passwords" width="960" height="600" loading="lazy" />
             </a>
@@ -102,15 +102,15 @@
               <div class="project-head">
                 <h3>password generator</h3>
                 <span class="project-links">
-                  <a href="/projects/random-password-generator/" target="_blank" rel="noopener">open<span class="visually-hidden"> password generator</span> ↗</a>
+                  <a href="/projects/random-password-generator/" target="_blank" rel="noopener">visit<span class="visually-hidden"> password generator</span> ↗</a>
                   <a href="https://github.com/cvemann/random-password-generator" target="_blank" rel="noopener">code<span class="visually-hidden"> for password generator</span> ↗</a>
                 </span>
               </div>
               <p>generates two random passwords on click.</p>
-              <p class="project-meta"><span class="project-year">2025</span><span>HTML</span><span>CSS</span><span>JavaScript</span></p>
+              <p class="project-meta"><span>HTML</span><span>CSS</span><span>JavaScript</span></p>
             </div>
           </li>
-          <li class="project">
+          <li class="project" data-year="2026">
             <a class="project-thumb" href="/projects/myleads-tracker-app/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
               <img src="img/projects/myleads-tracker.jpg" alt="my leads tracker app with three saved lead links" width="960" height="600" loading="lazy" />
             </a>
@@ -118,15 +118,15 @@
               <div class="project-head">
                 <h3>my leads tracker</h3>
                 <span class="project-links">
-                  <a href="/projects/myleads-tracker-app/" target="_blank" rel="noopener">open<span class="visually-hidden"> my leads tracker</span> ↗</a>
+                  <a href="/projects/myleads-tracker-app/" target="_blank" rel="noopener">visit<span class="visually-hidden"> my leads tracker</span> ↗</a>
                   <a href="https://github.com/cvemann/myleads-tracker-app" target="_blank" rel="noopener">code<span class="visually-hidden"> for my leads tracker</span> ↗</a>
                 </span>
               </div>
-              <p>a lightweight PWA that began as a browser extension. it saves and manages lead URLs, synced with Firebase.</p>
-              <p class="project-meta"><span class="project-year">2026</span><span>JavaScript</span><span>Firebase</span><span>PWA</span></p>
+              <p>a lightweight PWA, first a browser extension, that saves lead URLs and syncs them with Firebase.</p>
+              <p class="project-meta"><span>JavaScript</span><span>Firebase</span><span>PWA</span></p>
             </div>
           </li>
-          <li class="project">
+          <li class="project" data-year="2025">
             <a class="project-thumb" href="/projects/calculator-project/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
               <img src="img/projects/calculator.jpg" alt="calculator keypad with 128 on the display" width="960" height="600" loading="lazy" />
             </a>
@@ -134,12 +134,12 @@
               <div class="project-head">
                 <h3>calculator</h3>
                 <span class="project-links">
-                  <a href="/projects/calculator-project/" target="_blank" rel="noopener">open<span class="visually-hidden"> calculator</span> ↗</a>
+                  <a href="/projects/calculator-project/" target="_blank" rel="noopener">visit<span class="visually-hidden"> calculator</span> ↗</a>
                   <a href="https://github.com/cvemann/calculator-project" target="_blank" rel="noopener">code<span class="visually-hidden"> for calculator</span> ↗</a>
                 </span>
               </div>
-              <p>a working calculator built to practise JavaScript, with clear, backspace and the four basic operations.</p>
-              <p class="project-meta"><span class="project-year">2025</span><span>HTML</span><span>CSS</span><span>JavaScript</span></p>
+              <p>a working calculator built to practise JavaScript: clear, backspace and the four basic operations.</p>
+              <p class="project-meta"><span>HTML</span><span>CSS</span><span>JavaScript</span></p>
             </div>
           </li>
           </ul>

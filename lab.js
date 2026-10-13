@@ -1,28 +1,36 @@
-// Theme toggle: follows the system setting until the visitor picks one,
-// then remembers it in this browser.
+// Theme toggle: dark by default; light when the visitor picks it, remembered
+// in this browser. The label comes from CSS, so this only switches the theme
+// and keeps the button's accessible name right.
 (() => {
   const button = document.querySelector(".theme-toggle");
   if (!button) return;
-  const label = button.querySelector(".theme-label");
-  const systemDark = matchMedia("(prefers-color-scheme: dark)");
   const root = document.documentElement;
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
-  const current = () => root.dataset.theme || (systemDark.matches ? "dark" : "light");
+  const current = () => (root.dataset.theme === "light" ? "light" : "dark");
 
   function render() {
     const next = current() === "dark" ? "light" : "dark";
-    label.textContent = next;
     button.setAttribute("aria-label", `Switch to ${next} mode`);
+  }
+
+  function apply(theme) {
+    if (theme === "light") root.dataset.theme = "light";
+    else delete root.dataset.theme;
+    try { localStorage.setItem("theme", theme); } catch (e) {}
+    render();
   }
 
   button.addEventListener("click", () => {
     const next = current() === "dark" ? "light" : "dark";
-    root.dataset.theme = next;
-    try { localStorage.setItem("theme", next); } catch (e) {}
-    render();
+    // crossfade the whole page at once where supported, so nothing changes early
+    if (document.startViewTransition && !reduceMotion.matches) {
+      document.startViewTransition(() => apply(next));
+    } else {
+      apply(next);
+    }
   });
 
-  systemDark.addEventListener("change", render);
   render();
 })();
 
@@ -119,7 +127,7 @@
     swapImage(project.querySelector("img").currentSrc || project.querySelector("img").src);
     number.textContent = "fig. " + String(index + 1).padStart(2, "0");
     name.textContent = project.querySelector("h3").textContent;
-    year.textContent = project.querySelector(".project-year").textContent;
+    year.textContent = project.dataset.year || "";
     baseTilt = restingTilt[index % restingTilt.length];
 
     targetY = clampY(centreY);
