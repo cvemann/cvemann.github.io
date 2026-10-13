@@ -26,9 +26,10 @@ i'm on a journey to become a skilled UI Design Engineer. this repository is host
 
 ## 🔦 projects so far.
 
-- a tribute page to myself
+- my leads tracker app – a lightweight PWA that began as a browser extension to save and manage lead URLs locally.
+- Flutterwave homepage replica – rebuilt with only HTML and CSS.
 - password generator – generates random passwords on click.
-- Flutterwave homepage replica.
+- unit converter – converts between metric and imperial units.
   
 ## 🚧 projects in progress
 
