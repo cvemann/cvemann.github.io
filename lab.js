@@ -36,7 +36,8 @@
 
 // Project preview plate: on wide screens with a mouse, hovering (or tabbing to)
 // a project shows a larger plate in the right margin. It rides a vertical rail,
-// following the cursor up and down, and sits at a slightly worn angle.
+// following the cursor up and down, leans while it moves and settles straight
+// on whole pixels so the image stays sharp when it's still.
 (() => {
   const list = document.querySelector(".projects");
   const column = document.querySelector(".page");
@@ -46,8 +47,6 @@
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const projects = [...list.querySelectorAll(".project")];
 
-  // worn, not perfect: each plate rests at its own small angle
-  const restingTilt = [-1.4, 0.9, -0.6, 1.2, -1];
 
   const figure = document.createElement("figure");
   figure.className = "preview";
@@ -67,7 +66,6 @@
   let y = 0;
   let targetY = 0;
   let tilt = 0;
-  let baseTilt = 0;
   let frame = 0;
   let preloaded = false;
 
@@ -128,12 +126,11 @@
     number.textContent = "fig. " + String(index + 1).padStart(2, "0");
     name.textContent = project.querySelector("h3").textContent;
     year.textContent = project.dataset.year || "";
-    baseTilt = restingTilt[index % restingTilt.length];
 
     targetY = clampY(centreY);
     if (wasHidden) {
       y = targetY;
-      tilt = baseTilt;
+      tilt = 0;
     }
     figure.classList.add("is-on");
     tick();
@@ -146,15 +143,23 @@
 
   function tick() {
     cancelAnimationFrame(frame);
+    figure.style.willChange = "transform";
     const step = () => {
       const ease = reduceMotion.matches ? 1 : 0.16;
       y += (targetY - y) * ease;
       // a little drag: the plate leans into the direction it's moving
       const lean = reduceMotion.matches ? 0 : Math.max(-2.5, Math.min(2.5, (targetY - y) * 0.035));
-      tilt += (baseTilt + lean - tilt) * (reduceMotion.matches ? 1 : 0.2);
-      figure.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) rotate(${tilt.toFixed(3)}deg)`;
-      if (Math.abs(targetY - y) > 0.2 || Math.abs(baseTilt + lean - tilt) > 0.01) {
+      tilt += (lean - tilt) * (reduceMotion.matches ? 1 : 0.2);
+      const moving = Math.abs(targetY - y) > 0.5 || Math.abs(tilt) > 0.02;
+      if (moving) {
+        figure.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) rotate(${tilt.toFixed(3)}deg)`;
         frame = requestAnimationFrame(step);
+      } else {
+        // at rest: no rotation, whole pixels, no compositing layer, so it renders crisp
+        y = Math.round(targetY);
+        tilt = 0;
+        figure.style.transform = `translateY(${y}px)`;
+        figure.style.willChange = "auto";
       }
     };
     step();

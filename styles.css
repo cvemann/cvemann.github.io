@@ -4,7 +4,8 @@
    palette: drawn from Sunday Objects (one accent, grain, -24deg hatch,
    hard press shadows, square corners) on near-neutral graphite and paper
    with only a trace of blue-grey. dark is the default; light is
-   chosen with the toggle. accent: the brand cyan from the logo. */
+   chosen with the toggle. accent: the brand cyan (#00D4FF), deepened on
+   the light theme so links stay readable. */
 :root {
   --bg: #131516;
   --surface: #1b1f20;
@@ -13,7 +14,6 @@
   --muted: #b3b9ba;
   --faint: #8a9294;
   --accent: #00d4ff;
-  --brand: #00d4ff;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .95 0 0 0 0 .95 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
   color-scheme: dark;
 
@@ -27,7 +27,7 @@
   --step--2: 11px;
   --step--1: 12px;
   --step-0: 14px;
-  --step-1: 20px;
+  --step-1: 26px;
 
   --rail: 96px;
   --rule: 2px;
@@ -36,8 +36,7 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* light: chosen with the toggle. the brand cyan is deepened here
-   so links stay readable on paper. */
+/* light: chosen with the toggle */
 :root[data-theme="light"] {
   --bg: #f3f4f2;
   --surface: #e8eae7;
@@ -46,7 +45,6 @@
   --muted: #4b5355;
   --faint: #677073;
   --accent: #007a94;
-  --brand: #0089a8;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
   color-scheme: light;
 }
@@ -112,7 +110,7 @@ a:focus-visible {
 }
 
 .page {
-  max-width: 680px;
+  max-width: 720px;
   margin: 0 auto;
   padding-block: 40px 32px;
   padding-inline: 20px;
@@ -137,7 +135,7 @@ a.logo-link {
   display: block;
   width: 32px;
   height: auto;
-  color: var(--brand);
+  color: var(--text);
 }
 
 .site-nav {
@@ -223,10 +221,10 @@ h1 {
   font-family: var(--font-display);
   font-size: var(--step-1);
   font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: -0.015em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   text-wrap: balance;
-  max-width: 28ch;
+  max-width: 24ch;
   margin-bottom: 16px;
 }
 
@@ -265,12 +263,38 @@ h1 {
   margin-top: 8px;
 }
 
-.plain-list li {
-  color: var(--muted);
+/* learning: one topic per line, set like a ledger */
+
+.ledger {
+  display: grid;
+  margin-top: -4px;
 }
 
-.plain-list li + li {
-  margin-top: 4px;
+.ledger div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding-block: 10px;
+  border-bottom: var(--hair) solid var(--line);
+}
+
+.ledger div:first-child {
+  padding-top: 4px;
+}
+
+.ledger div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ledger dt {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.ledger dd {
+  color: var(--muted);
 }
 
 /* projects */
@@ -462,7 +486,6 @@ h1 {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.18s ease;
-  will-change: transform;
 }
 
 .preview.is-on {
@@ -615,6 +638,11 @@ h1 {
 
   .project-head {
     flex-direction: column;
+    gap: 2px;
+  }
+
+  .ledger div {
+    grid-template-columns: minmax(0, 1fr);
     gap: 2px;
   }
 
