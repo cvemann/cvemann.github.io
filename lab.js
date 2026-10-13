@@ -244,7 +244,8 @@ runLoader();
   addEventListener("resize", () => active && (placeRail() || hide()));
 })();
 
-// Scroll motion: M2 hero, M3 header and nav marker, M4/M5 row reveals.
+// Scroll motion: M2 hero, M3 header and nav marker, M4/M5 row reveals,
+// M8 footer signature.
 // One passive scroll listener and one rAF per frame; reveals use an
 // IntersectionObserver. Reveals only run when the page has the .motion flag
 // (set in the head when reduced motion is off).
@@ -342,6 +343,17 @@ runLoader();
       });
     }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
     rows.forEach((row) => io.observe(row));
+
+    // M8: the pen signs the footer once, when it is 60% in view
+    const footer = document.querySelector(".site-footer");
+    if (footer && footer.querySelector(".signature")) {
+      const sign = new IntersectionObserver((entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        footer.classList.add("is-signed");
+        sign.disconnect();
+      }, { threshold: 0.6 });
+      sign.observe(footer);
+    }
   }
 
   // wait for the loader to hand off, so nothing reveals behind it
