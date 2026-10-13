@@ -30,7 +30,7 @@ i'm on a journey to become a skilled UI Design Engineer. this repository is host
 - Tailwind CSS challenges – five small layouts built with Tailwind.
 - password generator – generates random passwords on click.
 - my leads tracker app – a lightweight PWA that began as a browser extension to save and manage lead URLs locally.
-- calculator – a working calculator with the four basic operations.
+- calculator – a calculator keypad built to practise JavaScript (work in progress).
   
 ## 🚧 projects in progress
 
