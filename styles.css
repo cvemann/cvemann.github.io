@@ -42,14 +42,14 @@
 
 /* light: chosen with the toggle */
 :root[data-theme="light"] {
-  --bg: #f3f4f2;
-  --surface: #e8eae7;
-  --line: #d2d6d3;
+  --bg: #fbfbfa;
+  --surface: #f1f2f0;
+  --line: #dfe2df;
   --text: #151a1b;
-  --muted: #4b5355;
-  --faint: #677073;
+  --muted: #4a5153;
+  --faint: #656d70;
   --accent: #007a94;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
   color-scheme: light;
 }
 
