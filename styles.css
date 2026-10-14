@@ -103,9 +103,11 @@ a {
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
-a:hover {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
+@media (hover: hover) {
+  a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
 }
 
 a:focus-visible {
@@ -207,8 +209,10 @@ main > section[id] {
   text-decoration: none;
 }
 
-.site-nav a:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .site-nav a:hover {
+    color: var(--accent);
+  }
 }
 
 .theme-toggle {
@@ -227,8 +231,10 @@ main > section[id] {
   cursor: pointer;
 }
 
-.theme-toggle:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .theme-toggle:hover {
+    color: var(--accent);
+  }
 }
 
 .theme-toggle:focus-visible {
@@ -461,8 +467,8 @@ h1 {
   transition: background-color 0.15s ease;
 }
 
-.project:hover,
-.project:focus-within {
+.project:has(:focus-visible),
+.project.is-pressed {
   background: var(--surface);
 }
 
@@ -496,20 +502,40 @@ h1 {
   transition: opacity 0.15s ease;
 }
 
-.project:hover .project-thumb,
-.project:focus-within .project-thumb {
+.project:has(:focus-visible) .project-thumb,
+.project.is-pressed .project-thumb {
   transform: translate(-2px, -2px);
   border-color: var(--faint);
 }
 
-.project:hover .project-thumb::before,
-.project:focus-within .project-thumb::before {
+.project:has(:focus-visible) .project-thumb::before,
+.project.is-pressed .project-thumb::before {
   transform: translate(calc(var(--press) + 2px), calc(var(--press) + 2px));
 }
 
-.project:hover .project-thumb img,
-.project:focus-within .project-thumb img {
+.project:has(:focus-visible) .project-thumb img,
+.project.is-pressed .project-thumb img {
   opacity: 1;
+}
+
+/* M9: hover only where a real hover exists, so a tap never sticks */
+@media (hover: hover) {
+  .project:hover {
+    background: var(--surface);
+  }
+
+  .project:hover .project-thumb {
+    transform: translate(-2px, -2px);
+    border-color: var(--faint);
+  }
+
+  .project:hover .project-thumb::before {
+    transform: translate(calc(var(--press) + 2px), calc(var(--press) + 2px));
+  }
+
+  .project:hover .project-thumb img {
+    opacity: 1;
+  }
 }
 
 .project-thumb:active {
@@ -565,10 +591,13 @@ h1 {
 
 .project-links a {
   color: var(--muted);
+  white-space: nowrap;
 }
 
-.project-links a:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .project-links a:hover {
+    color: var(--accent);
+  }
 }
 
 /* contact */
@@ -967,8 +996,8 @@ h1 {
 .signature {
   position: relative;
   flex: none;
-  width: 19px;
-  height: 12px;
+  width: 16px;
+  height: 10px;
   color: var(--text);
 }
 
@@ -1051,7 +1080,7 @@ h1 {
   transition-delay: 1.38s;
 }
 
-
+.visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1142,4 +1171,131 @@ h1 {
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.3s;
+}
+
+/* M9 touch: a tap gets the hover lift (lab.js adds .is-pressed and holds it
+   150ms), the browser's grey flash is off, and small links get a 44px tall
+   hit area without moving the layout */
+.project {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (pointer: coarse) {
+  .site-nav a,
+  .project-links a,
+  .contact-links a,
+  .theme-toggle {
+    padding-block: 13px;
+    margin-block: -13px;
+  }
+
+  .site-nav a,
+  .project-links a,
+  .contact-links a {
+    display: inline-block;
+  }
+}
+
+/* M10 keyboard: the first Tab offers a skip link, a small plate that
+   slides down from above the header */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 60;
+  padding: 8px 12px;
+  border: var(--hair) solid var(--text);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-decoration: none;
+  transform: translateY(calc(-100% - 16px));
+  transition: transform 0.2s var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+/* M10 link arrows: nudge on hover or focus; sent off when opened */
+.arrow {
+  display: inline-block;
+  transition: transform 0.15s var(--ease);
+}
+
+a:focus-visible .arrow {
+  transform: translate(2px, -2px);
+}
+
+@media (hover: hover) {
+  a:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+}
+
+.arrow.is-sent {
+  animation: send-off 0.42s linear;
+}
+
+@keyframes send-off {
+  0% { transform: translate(2px, -2px); opacity: 1; animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  43% { transform: translate(8px, -8px); opacity: 0; }
+  44% { transform: translate(-6px, 6px); opacity: 0; animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1); }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+/* M11 page transitions between lab pages: the header stays still while the
+   page under it lifts away; the arriving page's own entrance does the rest.
+   lab.js and the head script add .vt-page only while a navigation runs, so
+   the theme crossfade above is untouched. */
+@view-transition {
+  navigation: auto;
+}
+
+.vt-page .site-header {
+  view-transition-name: site-header;
+}
+
+.vt-page::view-transition-old(root) {
+  animation: page-out 0.2s ease-in both;
+}
+
+.vt-page::view-transition-new(root) {
+  animation: page-in 0.2s ease-out 0.12s both;
+}
+
+@keyframes page-out {
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes page-in {
+  from { opacity: 0; }
+}
+
+/* arriving through a page transition, the header is already in place */
+.vt-arrived .site-header {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  .skip-link,
+  .arrow {
+    transition: none;
+  }
+
+  .arrow.is-sent {
+    animation: none;
+  }
+
+  .project,
+  .project-thumb,
+  .project-thumb::before {
+    transition: none;
+  }
 }
