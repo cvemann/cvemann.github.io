@@ -482,17 +482,6 @@ h1 {
   transition: transform 0.15s var(--ease), border-color 0.15s ease;
 }
 
-/* themed projects have a dark and a light thumbnail; show the one that
-   matches the page */
-.project-thumb .thumb-light,
-:root[data-theme="light"] .project-thumb .thumb-dark {
-  display: none;
-}
-
-:root[data-theme="light"] .project-thumb .thumb-light {
-  display: block;
-}
-
 .project-thumb::before {
   content: "";
   position: absolute;
