@@ -959,6 +959,8 @@ h1 {
 }
 
 .preview figcaption b {
+  flex: none;
+  white-space: nowrap;
   font-weight: 400;
   color: var(--text);
 }
@@ -1193,6 +1195,27 @@ h1 {
   .project-links a,
   .contact-links a {
     display: inline-block;
+  }
+}
+
+/* very narrow screens (small phones, or zoomed in): the nav keeps to the
+   screen. the toggle shows only its swatch; its label stays for assistive tech */
+@media (max-width: 400px) {
+  .site-header {
+    gap: 12px;
+  }
+
+  .site-nav {
+    gap: 14px;
+  }
+
+  .theme-toggle {
+    margin-left: 0;
+    padding-left: 12px;
+  }
+
+  .theme-label {
+    display: none;
   }
 }
 
