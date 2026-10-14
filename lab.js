@@ -147,12 +147,19 @@ runLoader();
     return Math.max(edge, Math.min(innerHeight - h - edge, centre - h / 2));
   }
 
+  // the thumbnail that matches the current theme (themed projects have two)
+  function thumbFor(project) {
+    const light = document.documentElement.dataset.theme === "light";
+    const img = project.querySelector(light ? ".thumb-light" : ".thumb-dark") || project.querySelector("img");
+    return img.currentSrc || img.src;
+  }
+
   function preload() {
     if (preloaded) return;
     preloaded = true;
     projects.forEach((p) => {
       const img = new Image();
-      img.src = p.querySelector("img").currentSrc || p.querySelector("img").src;
+      img.src = thumbFor(p);
     });
   }
 
@@ -176,7 +183,7 @@ runLoader();
     const wasHidden = !active;
     active = project;
 
-    swapImage(project.querySelector("img").currentSrc || project.querySelector("img").src);
+    swapImage(thumbFor(project));
     number.textContent = "fig. " + String(index + 1).padStart(2, "0");
     name.textContent = project.querySelector("h3").textContent;
     year.textContent = project.dataset.year || "";
