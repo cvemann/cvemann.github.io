@@ -961,14 +961,14 @@ h1 {
 .sig-line {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
 }
 
 .signature {
   position: relative;
   flex: none;
-  width: 28px;
-  height: 18px;
+  width: 19px;
+  height: 12px;
   color: var(--text);
 }
 
@@ -992,7 +992,7 @@ h1 {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: repeating-linear-gradient(-24deg, var(--text) 0 1px, transparent 1px 4px);
+  background: repeating-linear-gradient(-24deg, var(--text) 0 1px, transparent 1px 3px);
 }
 
 .sig-ghost-g {
