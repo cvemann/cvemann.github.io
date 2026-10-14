@@ -240,11 +240,13 @@ runLoader();
     if (!list.contains(e.relatedTarget)) hide();
   });
 
+  addEventListener("keydown", (e) => e.key === "Escape" && active && hide());
   addEventListener("scroll", () => active && !list.matches(":hover") && hide(), { passive: true });
   addEventListener("resize", () => active && (placeRail() || hide()));
 })();
 
-// Scroll motion: M2 hero, M3 header and nav marker, M4/M5 row reveals.
+// Scroll motion: M2 hero, M3 header and nav marker, M4/M5 row reveals,
+// M8 footer signature.
 // One passive scroll listener and one rAF per frame; reveals use an
 // IntersectionObserver. Reveals only run when the page has the .motion flag
 // (set in the head when reduced motion is off).
@@ -342,6 +344,23 @@ runLoader();
       });
     }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
     rows.forEach((row) => io.observe(row));
+
+    // M10: focus never lands on a row that hasn't revealed yet
+    rows.forEach((row) => row.addEventListener("focusin", () => {
+      row.classList.add("is-in");
+      io.unobserve(row);
+    }));
+
+    // M8: the pen signs the footer once, when it is 60% in view
+    const footer = document.querySelector(".site-footer");
+    if (footer && footer.querySelector(".signature")) {
+      const sign = new IntersectionObserver((entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        footer.classList.add("is-signed");
+        sign.disconnect();
+      }, { threshold: 0.6 });
+      sign.observe(footer);
+    }
   }
 
   // wait for the loader to hand off, so nothing reveals behind it
@@ -356,4 +375,44 @@ runLoader();
   } else {
     startReveals();
   }
+})();
+
+// M9 touch press: a tap lifts the row like a hover does, held 150ms after
+// release so a quick tap still reads; starting a scroll drops it at once.
+// M10 arrows: the ↗ is sent off when its link opens.
+// M11 page transitions: mark the leaving page while a navigation runs (the
+// arriving page marks itself in its head script).
+(() => {
+  document.querySelectorAll(".project").forEach((project) => {
+    let timer = 0;
+    const release = (delay) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => project.classList.remove("is-pressed"), delay);
+    };
+    project.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse") return;
+      clearTimeout(timer);
+      project.classList.add("is-pressed");
+    });
+    project.addEventListener("pointerup", () => release(150));
+    project.addEventListener("pointercancel", () => release(0));
+  });
+
+  document.addEventListener("click", (e) => {
+    const arrow = e.target.closest && e.target.closest("a")?.querySelector(".arrow");
+    if (!arrow) return;
+    arrow.classList.remove("is-sent");
+    void arrow.offsetWidth; // restart if it is already playing
+    arrow.classList.add("is-sent");
+    arrow.addEventListener("animationend", () => arrow.classList.remove("is-sent"), { once: true });
+  });
+
+  const root = document.documentElement;
+  addEventListener("pageswap", (e) => {
+    if (e.viewTransition) root.classList.add("vt-page");
+  });
+  // coming back to this page from the back/forward cache
+  addEventListener("pageshow", (e) => {
+    if (e.persisted) root.classList.remove("vt-page");
+  });
 })();

@@ -25,6 +25,14 @@
           setTimeout(function () { var r = document.documentElement; r.classList.add("loader-done"); r.classList.remove("is-loading", "is-loaded"); }, 5500);
         }
       } catch (e) {}
+      // M11: arriving through a page transition (the loader, when it runs, is the entrance instead)
+      addEventListener("pagereveal", function (e) {
+        if (!e.viewTransition) return;
+        var r = document.documentElement;
+        if (r.classList.contains("is-loading")) return e.viewTransition.skipTransition();
+        r.classList.add("vt-page", "vt-arrived");
+        e.viewTransition.finished.finally(function () { r.classList.remove("vt-page"); });
+      });
     </script>
     <script src="/lab.js" defer></script>
     <meta name="description" content="Godswill Ukpong's front-end projects playground: HTML, CSS and JavaScript projects built on the way to becoming a UI Design Engineer." />
@@ -64,6 +72,7 @@
         </svg>
       </div>
     </div>
+    <a class="skip-link" href="#projects">skip to projects</a>
     <div class="page">
       <header class="site-header">
         <a href="/" class="logo-link"><svg class="logo" viewBox="3 10.5 42 27" width="44" height="28" fill="currentColor" role="img" aria-label="Godswill Ukpong, home"><title>Godswill</title><path d="M23.7948 26.022L13.0105 25.9278C13.0105 28.632 12.764 35.1897 8.15852 32.6314C5.43936 31.121 3.39626 26.5334 5.97127 24.0243C9.62426 20.4645 18.9525 21.6467 23.6298 22.0416L23.7188 11.9151C17.1902 9.68615 6.8522 10.8729 4.32785 18.3983C3.40594 21.1465 3.42531 28.527 4.40049 31.251C7.17142 38.9898 18.2142 38.7436 22.3079 32.2474C22.3943 32.1103 22.5299 31.8667 22.6885 31.5706C23.5993 29.8724 23.9833 27.9399 23.7948 26.0224V26.022Z" /><path d="M43.3972 29.4921C44.0223 27.9139 44.3016 26.2198 44.3083 24.5224L44.3184 21.9843V21.975L44.3497 11.9036H41.3888C41.5329 12.4463 41.6775 13.1395 41.7087 13.6916C41.7337 14.1713 41.7557 14.7453 41.7654 15.3882C41.8343 19.2212 41.5519 25.4097 39.758 27.671C38.2461 29.5748 37.0512 27.4077 36.5148 25.9177C35.0155 21.7556 35.0971 16.2353 35.7776 11.9129C35.7806 11.91 35.7806 11.9066 35.7806 11.9036H25.8065C24.743 17.4209 24.8529 23.6281 27.0268 28.866C27.4723 29.9417 28.0429 31.0052 28.7268 31.9744C28.7801 32.056 28.8367 32.1376 28.8993 32.2158C29.0967 32.4981 29.3101 32.7648 29.5358 33.0189C29.6301 33.1317 29.7303 33.2416 29.8338 33.3481C31.3707 34.951 33.3028 35.9075 35.4074 35.9075C36.574 35.9075 37.6907 35.6125 38.7166 35.0765C38.7322 35.0672 38.7478 35.0575 38.7635 35.0482C39.1397 34.8508 39.507 34.6153 39.8549 34.3486C41.3575 33.217 42.5908 31.5278 43.3969 29.4921H43.3972Z" /></svg></a>
@@ -99,8 +108,8 @@
               <div class="project-head">
                 <h3>Flutterwave homepage</h3>
                 <span class="project-links">
-                  <a href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener">visit<span class="visually-hidden"> Flutterwave homepage</span> ↗</a>
-                  <a href="https://github.com/cvemann/flutterwave-ui-replica" target="_blank" rel="noopener">code<span class="visually-hidden"> for Flutterwave homepage</span> ↗</a>
+                  <a href="/projects/flutterwave-ui-replica/" target="_blank" rel="noopener">visit<span class="visually-hidden"> Flutterwave homepage</span> <span class="arrow" aria-hidden="true">↗</span></a>
+                  <a href="https://github.com/cvemann/flutterwave-ui-replica" target="_blank" rel="noopener">code<span class="visually-hidden"> for Flutterwave homepage</span> <span class="arrow" aria-hidden="true">↗</span></a>
                 </span>
               </div>
               <p>a replica of Flutterwave's homepage, rebuilt with only HTML and CSS.</p>
@@ -115,8 +124,8 @@
               <div class="project-head">
                 <h3>Tailwind CSS challenges</h3>
                 <span class="project-links">
-                  <a href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener">visit<span class="visually-hidden"> Tailwind CSS challenges</span> ↗</a>
-                  <a href="https://github.com/cvemann/tailwind-CSS-challenges" target="_blank" rel="noopener">code<span class="visually-hidden"> for Tailwind CSS challenges</span> ↗</a>
+                  <a href="/projects/tailwind-CSS-challenges/" target="_blank" rel="noopener">visit<span class="visually-hidden"> Tailwind CSS challenges</span> <span class="arrow" aria-hidden="true">↗</span></a>
+                  <a href="https://github.com/cvemann/tailwind-CSS-challenges" target="_blank" rel="noopener">code<span class="visually-hidden"> for Tailwind CSS challenges</span> <span class="arrow" aria-hidden="true">↗</span></a>
                 </span>
               </div>
               <p>five small layouts built with Tailwind CSS, practising utility-first styling and mobile-first responsive design.</p>
@@ -131,8 +140,8 @@
               <div class="project-head">
                 <h3>password generator</h3>
                 <span class="project-links">
-                  <a href="/projects/random-password-generator/" target="_blank" rel="noopener">visit<span class="visually-hidden"> password generator</span> ↗</a>
-                  <a href="https://github.com/cvemann/random-password-generator" target="_blank" rel="noopener">code<span class="visually-hidden"> for password generator</span> ↗</a>
+                  <a href="/projects/random-password-generator/" target="_blank" rel="noopener">visit<span class="visually-hidden"> password generator</span> <span class="arrow" aria-hidden="true">↗</span></a>
+                  <a href="https://github.com/cvemann/random-password-generator" target="_blank" rel="noopener">code<span class="visually-hidden"> for password generator</span> <span class="arrow" aria-hidden="true">↗</span></a>
                 </span>
               </div>
               <p>generates two random passwords on click.</p>
@@ -147,8 +156,8 @@
               <div class="project-head">
                 <h3>my leads tracker</h3>
                 <span class="project-links">
-                  <a href="/projects/myleads-tracker-app/" target="_blank" rel="noopener">visit<span class="visually-hidden"> my leads tracker</span> ↗</a>
-                  <a href="https://github.com/cvemann/myleads-tracker-app" target="_blank" rel="noopener">code<span class="visually-hidden"> for my leads tracker</span> ↗</a>
+                  <a href="/projects/myleads-tracker-app/" target="_blank" rel="noopener">visit<span class="visually-hidden"> my leads tracker</span> <span class="arrow" aria-hidden="true">↗</span></a>
+                  <a href="https://github.com/cvemann/myleads-tracker-app" target="_blank" rel="noopener">code<span class="visually-hidden"> for my leads tracker</span> <span class="arrow" aria-hidden="true">↗</span></a>
                 </span>
               </div>
               <p>a lightweight PWA, first a browser extension, that saves lead URLs and syncs them with Firebase.</p>
@@ -163,8 +172,8 @@
               <div class="project-head">
                 <h3>calculator</h3>
                 <span class="project-links">
-                  <a href="/projects/calculator-project/" target="_blank" rel="noopener">visit<span class="visually-hidden"> calculator</span> ↗</a>
-                  <a href="https://github.com/cvemann/calculator-project" target="_blank" rel="noopener">code<span class="visually-hidden"> for calculator</span> ↗</a>
+                  <a href="/projects/calculator-project/" target="_blank" rel="noopener">visit<span class="visually-hidden"> calculator</span> <span class="arrow" aria-hidden="true">↗</span></a>
+                  <a href="https://github.com/cvemann/calculator-project" target="_blank" rel="noopener">code<span class="visually-hidden"> for calculator</span> <span class="arrow" aria-hidden="true">↗</span></a>
                 </span>
               </div>
               <p>a working calculator built to practise JavaScript: clear, backspace and the four basic operations.</p>
@@ -212,8 +221,26 @@
       </main>
 
       <footer class="site-footer">
-        <p>built with curiosity and caffeine by Godswill Ukpong ☕</p>
-        <p>lab.meetgodswill.com</p>
+        <p class="sig-line">
+          <span class="signature" aria-hidden="true">
+            <span class="sig-ghost sig-ghost-g"></span>
+            <span class="sig-ghost sig-ghost-u"></span>
+            <svg class="sig-mark" viewBox="3 10.5 42 27" width="16" height="10" fill="currentColor">
+              <defs>
+                <mask id="sig-g" maskUnits="userSpaceOnUse" x="-5" y="0" width="60" height="50">
+                  <path class="sig-pen sig-pen-g" pathLength="1" d="M23.6 15.6H21.4C19 12.2 11.4 11.4 8.2 15.4C5.2 19.4 5.4 28.6 8.4 32C11.4 35.4 17.6 35 20.6 31.4C22.4 29.2 22.6 26.6 21.4 24.4C18.2 23.6 13.8 24 11.6 26.4C10.4 27.8 10.2 29.4 10.6 30.6C11.4 27.2 17 25 23.4 25.4C27.6 25.6 30.6 20 31 11.8"/>
+                </mask>
+                <mask id="sig-u" maskUnits="userSpaceOnUse" x="-5" y="0" width="60" height="50">
+                  <path class="sig-pen sig-pen-u" pathLength="1" d="M10.6 30.6C11.4 27.2 17 25 23.4 25.4C27.6 25.6 30.6 20 31 11.8L31 27.6C31 32.6 33.4 35.4 36.8 35.4C41.2 35.4 43.6 31 43.8 25.4L43.9 11.4"/>
+                </mask>
+              </defs>
+              <path mask="url(#sig-g)" d="M23.7948 26.022L13.0105 25.9278C13.0105 28.632 12.764 35.1897 8.15852 32.6314C5.43936 31.121 3.39626 26.5334 5.97127 24.0243C9.62426 20.4645 18.9525 21.6467 23.6298 22.0416L23.7188 11.9151C17.1902 9.68615 6.8522 10.8729 4.32785 18.3983C3.40594 21.1465 3.42531 28.527 4.40049 31.251C7.17142 38.9898 18.2142 38.7436 22.3079 32.2474C22.3943 32.1103 22.5299 31.8667 22.6885 31.5706C23.5993 29.8724 23.9833 27.9399 23.7948 26.0224V26.022Z"/>
+              <path mask="url(#sig-u)" d="M43.3972 29.4921C44.0223 27.9139 44.3016 26.2198 44.3083 24.5224L44.3184 21.9843V21.975L44.3497 11.9036H41.3888C41.5329 12.4463 41.6775 13.1395 41.7087 13.6916C41.7337 14.1713 41.7557 14.7453 41.7654 15.3882C41.8343 19.2212 41.5519 25.4097 39.758 27.671C38.2461 29.5748 37.0512 27.4077 36.5148 25.9177C35.0155 21.7556 35.0971 16.2353 35.7776 11.9129C35.7806 11.91 35.7806 11.9066 35.7806 11.9036H25.8065C24.743 17.4209 24.8529 23.6281 27.0268 28.866C27.4723 29.9417 28.0429 31.0052 28.7268 31.9744C28.7801 32.056 28.8367 32.1376 28.8993 32.2158C29.0967 32.4981 29.3101 32.7648 29.5358 33.0189C29.6301 33.1317 29.7303 33.2416 29.8338 33.3481C31.3707 34.951 33.3028 35.9075 35.4074 35.9075C36.574 35.9075 37.6907 35.6125 38.7166 35.0765C38.7322 35.0672 38.7478 35.0575 38.7635 35.0482C39.1397 34.8508 39.507 34.6153 39.8549 34.3486C41.3575 33.217 42.5908 31.5278 43.3969 29.4921H43.3972Z"/>
+            </svg>
+          </span>
+          <span class="sig-text">built with curiosity and caffeine by Godswill Ukpong ☕</span>
+        </p>
+        <p class="sig-text">lab.meetgodswill.com</p>
       </footer>
     </div>
   </body>

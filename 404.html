@@ -16,6 +16,14 @@
     <meta name="color-scheme" content="dark light" />
     <script>
       try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+      // M11: arriving through a page transition (the loader, when it runs, is the entrance instead)
+      addEventListener("pagereveal", function (e) {
+        if (!e.viewTransition) return;
+        var r = document.documentElement;
+        if (r.classList.contains("is-loading")) return e.viewTransition.skipTransition();
+        r.classList.add("vt-page", "vt-arrived");
+        e.viewTransition.finished.finally(function () { r.classList.remove("vt-page"); });
+      });
     </script>
     <script src="/lab.js" defer></script>
   </head>

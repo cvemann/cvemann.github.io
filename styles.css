@@ -30,6 +30,10 @@
   --step-1: 26px;
 
   --rail: 96px;
+
+  /* the logo's two letters as mask images (loader and footer signature) */
+  --mask-g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 10.5 42 27'%3E%3Cpath d='M23.7948 26.022L13.0105 25.9278C13.0105 28.632 12.764 35.1897 8.15852 32.6314C5.43936 31.121 3.39626 26.5334 5.97127 24.0243C9.62426 20.4645 18.9525 21.6467 23.6298 22.0416L23.7188 11.9151C17.1902 9.68615 6.8522 10.8729 4.32785 18.3983C3.40594 21.1465 3.42531 28.527 4.40049 31.251C7.17142 38.9898 18.2142 38.7436 22.3079 32.2474C22.3943 32.1103 22.5299 31.8667 22.6885 31.5706C23.5993 29.8724 23.9833 27.9399 23.7948 26.0224V26.022Z'/%3E%3C/svg%3E");
+  --mask-u: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 10.5 42 27'%3E%3Cpath d='M43.3972 29.4921C44.0223 27.9139 44.3016 26.2198 44.3083 24.5224L44.3184 21.9843V21.975L44.3497 11.9036H41.3888C41.5329 12.4463 41.6775 13.1395 41.7087 13.6916C41.7337 14.1713 41.7557 14.7453 41.7654 15.3882C41.8343 19.2212 41.5519 25.4097 39.758 27.671C38.2461 29.5748 37.0512 27.4077 36.5148 25.9177C35.0155 21.7556 35.0971 16.2353 35.7776 11.9129C35.7806 11.91 35.7806 11.9066 35.7806 11.9036H25.8065C24.743 17.4209 24.8529 23.6281 27.0268 28.866C27.4723 29.9417 28.0429 31.0052 28.7268 31.9744C28.7801 32.056 28.8367 32.1376 28.8993 32.2158C29.0967 32.4981 29.3101 32.7648 29.5358 33.0189C29.6301 33.1317 29.7303 33.2416 29.8338 33.3481C31.3707 34.951 33.3028 35.9075 35.4074 35.9075C36.574 35.9075 37.6907 35.6125 38.7166 35.0765C38.7322 35.0672 38.7478 35.0575 38.7635 35.0482C39.1397 34.8508 39.507 34.6153 39.8549 34.3486C41.3575 33.217 42.5908 31.5278 43.3969 29.4921H43.3972Z'/%3E%3C/svg%3E");
   --rule: 2px;
   --hair: 1px;
   --press: 4px;
@@ -38,14 +42,14 @@
 
 /* light: chosen with the toggle */
 :root[data-theme="light"] {
-  --bg: #f3f4f2;
-  --surface: #e8eae7;
-  --line: #d2d6d3;
+  --bg: #fbfbfa;
+  --surface: #f1f2f0;
+  --line: #dfe2df;
   --text: #151a1b;
-  --muted: #4b5355;
-  --faint: #677073;
+  --muted: #4a5153;
+  --faint: #656d70;
   --accent: #007a94;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .1 0 0 0 0 .1 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
   color-scheme: light;
 }
 
@@ -99,9 +103,11 @@ a {
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
-a:hover {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
+@media (hover: hover) {
+  a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
 }
 
 a:focus-visible {
@@ -203,8 +209,10 @@ main > section[id] {
   text-decoration: none;
 }
 
-.site-nav a:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .site-nav a:hover {
+    color: var(--accent);
+  }
 }
 
 .theme-toggle {
@@ -223,8 +231,10 @@ main > section[id] {
   cursor: pointer;
 }
 
-.theme-toggle:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .theme-toggle:hover {
+    color: var(--accent);
+  }
 }
 
 .theme-toggle:focus-visible {
@@ -457,8 +467,8 @@ h1 {
   transition: background-color 0.15s ease;
 }
 
-.project:hover,
-.project:focus-within {
+.project:has(:focus-visible),
+.project.is-pressed {
   background: var(--surface);
 }
 
@@ -492,20 +502,40 @@ h1 {
   transition: opacity 0.15s ease;
 }
 
-.project:hover .project-thumb,
-.project:focus-within .project-thumb {
+.project:has(:focus-visible) .project-thumb,
+.project.is-pressed .project-thumb {
   transform: translate(-2px, -2px);
   border-color: var(--faint);
 }
 
-.project:hover .project-thumb::before,
-.project:focus-within .project-thumb::before {
+.project:has(:focus-visible) .project-thumb::before,
+.project.is-pressed .project-thumb::before {
   transform: translate(calc(var(--press) + 2px), calc(var(--press) + 2px));
 }
 
-.project:hover .project-thumb img,
-.project:focus-within .project-thumb img {
+.project:has(:focus-visible) .project-thumb img,
+.project.is-pressed .project-thumb img {
   opacity: 1;
+}
+
+/* M9: hover only where a real hover exists, so a tap never sticks */
+@media (hover: hover) {
+  .project:hover {
+    background: var(--surface);
+  }
+
+  .project:hover .project-thumb {
+    transform: translate(-2px, -2px);
+    border-color: var(--faint);
+  }
+
+  .project:hover .project-thumb::before {
+    transform: translate(calc(var(--press) + 2px), calc(var(--press) + 2px));
+  }
+
+  .project:hover .project-thumb img {
+    opacity: 1;
+  }
 }
 
 .project-thumb:active {
@@ -561,10 +591,13 @@ h1 {
 
 .project-links a {
   color: var(--muted);
+  white-space: nowrap;
 }
 
-.project-links a:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  .project-links a:hover {
+    color: var(--accent);
+  }
 }
 
 /* contact */
@@ -809,8 +842,8 @@ h1 {
 }
 
 .loader-ghost-g {
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 10.5 42 27'%3E%3Cpath d='M23.7948 26.022L13.0105 25.9278C13.0105 28.632 12.764 35.1897 8.15852 32.6314C5.43936 31.121 3.39626 26.5334 5.97127 24.0243C9.62426 20.4645 18.9525 21.6467 23.6298 22.0416L23.7188 11.9151C17.1902 9.68615 6.8522 10.8729 4.32785 18.3983C3.40594 21.1465 3.42531 28.527 4.40049 31.251C7.17142 38.9898 18.2142 38.7436 22.3079 32.2474C22.3943 32.1103 22.5299 31.8667 22.6885 31.5706C23.5993 29.8724 23.9833 27.9399 23.7948 26.0224V26.022Z'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 10.5 42 27'%3E%3Cpath d='M23.7948 26.022L13.0105 25.9278C13.0105 28.632 12.764 35.1897 8.15852 32.6314C5.43936 31.121 3.39626 26.5334 5.97127 24.0243C9.62426 20.4645 18.9525 21.6467 23.6298 22.0416L23.7188 11.9151C17.1902 9.68615 6.8522 10.8729 4.32785 18.3983C3.40594 21.1465 3.42531 28.527 4.40049 31.251C7.17142 38.9898 18.2142 38.7436 22.3079 32.2474C22.3943 32.1103 22.5299 31.8667 22.6885 31.5706C23.5993 29.8724 23.9833 27.9399 23.7948 26.0224V26.022Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: var(--mask-g) center / contain no-repeat;
+  mask: var(--mask-g) center / contain no-repeat;
   animation:
     sketch-in 0.4s ease-out 0.05s forwards,
     drift 1.1s linear infinite,
@@ -818,8 +851,8 @@ h1 {
 }
 
 .loader-ghost-u {
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 10.5 42 27'%3E%3Cpath d='M43.3972 29.4921C44.0223 27.9139 44.3016 26.2198 44.3083 24.5224L44.3184 21.9843V21.975L44.3497 11.9036H41.3888C41.5329 12.4463 41.6775 13.1395 41.7087 13.6916C41.7337 14.1713 41.7557 14.7453 41.7654 15.3882C41.8343 19.2212 41.5519 25.4097 39.758 27.671C38.2461 29.5748 37.0512 27.4077 36.5148 25.9177C35.0155 21.7556 35.0971 16.2353 35.7776 11.9129C35.7806 11.91 35.7806 11.9066 35.7806 11.9036H25.8065C24.743 17.4209 24.8529 23.6281 27.0268 28.866C27.4723 29.9417 28.0429 31.0052 28.7268 31.9744C28.7801 32.056 28.8367 32.1376 28.8993 32.2158C29.0967 32.4981 29.3101 32.7648 29.5358 33.0189C29.6301 33.1317 29.7303 33.2416 29.8338 33.3481C31.3707 34.951 33.3028 35.9075 35.4074 35.9075C36.574 35.9075 37.6907 35.6125 38.7166 35.0765C38.7322 35.0672 38.7478 35.0575 38.7635 35.0482C39.1397 34.8508 39.507 34.6153 39.8549 34.3486C41.3575 33.217 42.5908 31.5278 43.3969 29.4921H43.3972Z'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='3 10.5 42 27'%3E%3Cpath d='M43.3972 29.4921C44.0223 27.9139 44.3016 26.2198 44.3083 24.5224L44.3184 21.9843V21.975L44.3497 11.9036H41.3888C41.5329 12.4463 41.6775 13.1395 41.7087 13.6916C41.7337 14.1713 41.7557 14.7453 41.7654 15.3882C41.8343 19.2212 41.5519 25.4097 39.758 27.671C38.2461 29.5748 37.0512 27.4077 36.5148 25.9177C35.0155 21.7556 35.0971 16.2353 35.7776 11.9129C35.7806 11.91 35.7806 11.9066 35.7806 11.9036H25.8065C24.743 17.4209 24.8529 23.6281 27.0268 28.866C27.4723 29.9417 28.0429 31.0052 28.7268 31.9744C28.7801 32.056 28.8367 32.1376 28.8993 32.2158C29.0967 32.4981 29.3101 32.7648 29.5358 33.0189C29.6301 33.1317 29.7303 33.2416 29.8338 33.3481C31.3707 34.951 33.3028 35.9075 35.4074 35.9075C36.574 35.9075 37.6907 35.6125 38.7166 35.0765C38.7322 35.0672 38.7478 35.0575 38.7635 35.0482C39.1397 34.8508 39.507 34.6153 39.8549 34.3486C41.3575 33.217 42.5908 31.5278 43.3969 29.4921H43.3972Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: var(--mask-u) center / contain no-repeat;
+  mask: var(--mask-u) center / contain no-repeat;
   animation:
     sketch-in 0.4s ease-out 0.05s forwards,
     drift 1.1s linear infinite,
@@ -843,8 +876,7 @@ h1 {
 /* the rest of the page waits under the sheet, then rises as it fades */
 .is-loading:not(.is-loaded) .eyebrow,
 .is-loading:not(.is-loaded) .lede,
-.is-loading:not(.is-loaded) .kinetic .w > span,
-.is-loading:not(.is-loaded) .site-footer {
+.is-loading:not(.is-loaded) .kinetic .w > span {
   animation-play-state: paused;
 }
 
@@ -950,6 +982,104 @@ h1 {
   }
 }
 
+/* M8 signature: the page closes as it opened. when the footer comes into
+   view, the same pen signs the mark small before the line, with the loader's
+   ink-curve pacing over 1.3s; then the words follow. lab.js adds .is-signed.
+   without motion the mark is simply there, solid. */
+
+.sig-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.signature {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 10px;
+  color: var(--text);
+}
+
+.sig-mark {
+  position: relative;
+  display: block;
+  overflow: visible;
+}
+
+.sig-pen {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 13;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 0;
+}
+
+.sig-ghost {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: repeating-linear-gradient(-24deg, var(--text) 0 1px, transparent 1px 3px);
+}
+
+.sig-ghost-g {
+  -webkit-mask: var(--mask-g) center / contain no-repeat;
+  mask: var(--mask-g) center / contain no-repeat;
+}
+
+.sig-ghost-u {
+  -webkit-mask: var(--mask-u) center / contain no-repeat;
+  mask: var(--mask-u) center / contain no-repeat;
+}
+
+/* with motion: everything waits for the signature */
+.motion .sig-pen {
+  stroke-dashoffset: 1;
+}
+
+.motion .sig-text {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s var(--ease) 1.3s, transform 0.4s var(--ease) 1.3s;
+}
+
+.motion .site-footer p.sig-text {
+  display: block;
+}
+
+/* the sketch (0.2s), then the pen writes over 1.3s from 0.2s. the G's ink is
+   complete at 0.87s, the U's at 1.5s; each swells and drops its sketch then */
+.motion .is-signed .sig-ghost {
+  animation: sketch-in 0.2s ease-out forwards;
+}
+
+.motion .is-signed .sig-ghost-g {
+  animation: sketch-in 0.2s ease-out forwards, sketch-out 0.15s ease 0.87s forwards;
+}
+
+.motion .is-signed .sig-ghost-u {
+  animation: sketch-in 0.2s ease-out forwards, sketch-out 0.15s ease 1.5s forwards;
+}
+
+.motion .is-signed .sig-pen-g {
+  animation: write-g 1.3s linear 0.2s forwards, swell 0.12s ease-out 0.87s forwards;
+}
+
+.motion .is-signed .sig-pen-u {
+  animation: write-u 1.3s linear 0.2s forwards, swell 0.12s ease-out 1.5s forwards;
+}
+
+.motion .is-signed .sig-text {
+  opacity: 1;
+  transform: none;
+}
+
+.site-footer p:last-child.sig-text {
+  transition-delay: 1.38s;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -965,14 +1095,12 @@ h1 {
 @media (prefers-reduced-motion: no-preference) {
   .site-header,
   .eyebrow,
-  .lede,
-  .site-footer {
+  .lede {
     animation: rise 0.7s var(--ease) both;
   }
 
   .eyebrow { animation-delay: 0.04s; }
   .lede { animation-delay: 0.45s; }
-  .site-footer { animation-delay: 0.3s; }
 }
 
 /* M7 reduced motion: nothing moves; everything is simply there */
@@ -1043,4 +1171,131 @@ h1 {
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.3s;
+}
+
+/* M9 touch: a tap gets the hover lift (lab.js adds .is-pressed and holds it
+   150ms), the browser's grey flash is off, and small links get a 44px tall
+   hit area without moving the layout */
+.project {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (pointer: coarse) {
+  .site-nav a,
+  .project-links a,
+  .contact-links a,
+  .theme-toggle {
+    padding-block: 13px;
+    margin-block: -13px;
+  }
+
+  .site-nav a,
+  .project-links a,
+  .contact-links a {
+    display: inline-block;
+  }
+}
+
+/* M10 keyboard: the first Tab offers a skip link, a small plate that
+   slides down from above the header */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 60;
+  padding: 8px 12px;
+  border: var(--hair) solid var(--text);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-decoration: none;
+  transform: translateY(calc(-100% - 16px));
+  transition: transform 0.2s var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+/* M10 link arrows: nudge on hover or focus; sent off when opened */
+.arrow {
+  display: inline-block;
+  transition: transform 0.15s var(--ease);
+}
+
+a:focus-visible .arrow {
+  transform: translate(2px, -2px);
+}
+
+@media (hover: hover) {
+  a:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+}
+
+.arrow.is-sent {
+  animation: send-off 0.42s linear;
+}
+
+@keyframes send-off {
+  0% { transform: translate(2px, -2px); opacity: 1; animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  43% { transform: translate(8px, -8px); opacity: 0; }
+  44% { transform: translate(-6px, 6px); opacity: 0; animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1); }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+/* M11 page transitions between lab pages: the header stays still while the
+   page under it lifts away; the arriving page's own entrance does the rest.
+   lab.js and the head script add .vt-page only while a navigation runs, so
+   the theme crossfade above is untouched. */
+@view-transition {
+  navigation: auto;
+}
+
+.vt-page .site-header {
+  view-transition-name: site-header;
+}
+
+.vt-page::view-transition-old(root) {
+  animation: page-out 0.2s ease-in both;
+}
+
+.vt-page::view-transition-new(root) {
+  animation: page-in 0.2s ease-out 0.12s both;
+}
+
+@keyframes page-out {
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes page-in {
+  from { opacity: 0; }
+}
+
+/* arriving through a page transition, the header is already in place */
+.vt-arrived .site-header {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  .skip-link,
+  .arrow {
+    transition: none;
+  }
+
+  .arrow.is-sent {
+    animation: none;
+  }
+
+  .project,
+  .project-thumb,
+  .project-thumb::before {
+    transition: none;
+  }
 }
