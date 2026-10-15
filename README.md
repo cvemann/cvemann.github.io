@@ -32,6 +32,10 @@ i'm on a journey to become a skilled UI Design Engineer. this repository is host
 - my leads tracker app – a lightweight PWA that began as a browser extension; it saves lead URLs and syncs them with Firebase.
 - calculator – a working calculator with clear, backspace and the four basic operations.
   
+## 🎬 playground
+
+- Optimus Prime, a Caveman film – a stop-motion short made for an assignment from Yappi Nigeria, starring the toy on my workspace.
+
 ## 🚧 projects in progress
 
 - design system – putting together a component library.

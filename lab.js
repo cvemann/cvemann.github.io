@@ -255,7 +255,7 @@ runLoader();
   const header = document.querySelector(".site-header");
   const nav = document.querySelector(".site-nav");
   const hero = document.querySelector(".kinetic");
-  const sections = ["projects", "learning", "contact"]
+  const sections = ["projects", "playground", "learning", "contact"]
     .map((id) => document.getElementById(id))
     .filter(Boolean);
   if (!header) return;
@@ -286,19 +286,34 @@ runLoader();
     marker.style.transform = `translateX(${a.offsetLeft}px)`;
   }
 
+  let picked = null;
+  links.forEach((a, key) => a.addEventListener("click", () => {
+    // remember the pick once the jump has landed
+    setTimeout(() => {
+      picked = { id: key, y: scrollY };
+      update();
+    }, 700);
+    picked = { id: key, y: null }; // held while the page scrolls there
+    setCurrent(key);
+  }));
+
   let ticking = false;
   function update() {
     ticking = false;
     const y = scrollY;
     header.classList.toggle("is-condensed", y > 120);
 
-    // the last section whose top has passed a reading line. the line slides
-    // from 40% of the screen at the top of the page to the bottom edge at the
-    // end, so every section gets its turn even on a short page
-    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-    const line = innerHeight * (0.4 + 0.6 * Math.min(1, y / max));
+    // the last section whose top has passed 40% of the screen; at the very
+    // bottom of the page the last section is current, even if it's short
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const line = innerHeight * 0.4;
     let id = null;
     for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;
+    if (max > 0 && y >= max - 2) id = sections[sections.length - 1].id;
+    // a section picked from the nav stays current until you scroll on, even
+    // when the page is too short to bring it to the top
+    if (picked && (picked.y === null || Math.abs(y - picked.y) < 40)) id = picked.id;
+    else picked = null;
     setCurrent(id);
 
     // M2: 0 at the top, 1 once the hero has scrolled up under the header
@@ -415,4 +430,61 @@ runLoader();
   addEventListener("pageshow", (e) => {
     if (e.persisted) root.classList.remove("vt-page");
   });
+})();
+
+// Playground film: plays muted and looped while it's on screen, pauses when
+// it scrolls away. With reduced motion it waits to be played. Play/pause and
+// sound are buttons over the frame.
+(() => {
+  const video = document.querySelector(".film-video");
+  if (!video) return;
+  const playBtn = document.querySelector(".film-play");
+  const soundBtn = document.querySelector(".film-sound");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let userPaused = reduceMotion.matches; // with reduced motion, wait for a tap
+  let visible = false;
+
+  const label = () => {
+    playBtn.textContent = video.paused ? "play" : "pause";
+    soundBtn.textContent = video.muted ? "sound off" : "sound on";
+    soundBtn.setAttribute("aria-pressed", String(!video.muted));
+  };
+
+  const update = () => {
+    if (visible && !userPaused) video.play().catch(() => {});
+    else video.pause();
+  };
+
+  playBtn.addEventListener("click", () => {
+    userPaused = !video.paused;
+    if (userPaused) video.pause();
+    else video.play().catch(() => {});
+  });
+
+  soundBtn.addEventListener("click", () => {
+    video.muted = !video.muted;
+    if (!video.muted && video.paused) {
+      userPaused = false;
+      video.play().catch(() => {});
+    }
+  });
+
+  ["play", "pause", "volumechange"].forEach((type) => video.addEventListener(type, label));
+
+  // start loading a little before it scrolls in
+  new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) video.preload = "auto";
+  }, { rootMargin: "400px 0px" }).observe(video);
+
+  new IntersectionObserver((entries) => {
+    visible = entries.some((e) => e.isIntersecting);
+    update();
+  }, { threshold: 0.5 }).observe(video);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) video.pause();
+    else update();
+  });
+
+  label();
 })();
