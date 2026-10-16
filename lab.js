@@ -446,8 +446,9 @@ runLoader();
 
   const label = () => {
     playBtn.textContent = video.paused ? "play" : "pause";
-    soundBtn.textContent = video.muted ? "sound off" : "sound on";
-    soundBtn.setAttribute("aria-pressed", String(!video.muted));
+    // both buttons name what they'll do, not what's happening now
+    soundBtn.textContent = video.muted ? "sound on" : "sound off";
+    soundBtn.classList.toggle("is-on", !video.muted);
   };
 
   const update = () => {
