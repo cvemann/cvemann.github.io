@@ -600,6 +600,97 @@ h1 {
   }
 }
 
+/* playground: a short film on a plate. it plays muted while it's on
+   screen and pauses when it leaves; sound and play are yours to switch */
+.film {
+  display: grid;
+  gap: 16px;
+}
+
+.film-frame {
+  position: relative;
+  isolation: isolate;
+  border: var(--hair) solid var(--line);
+  background: var(--surface);
+}
+
+.film-frame::before {
+  content: "";
+  position: absolute;
+  inset: calc(var(--hair) * -1);
+  z-index: -1;
+  background: var(--hatch-ink);
+  transform: translate(var(--press), var(--press));
+}
+
+.film-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--surface);
+}
+
+.film-controls {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.film-controls button {
+  pointer-events: auto;
+  padding: 5px 10px;
+  border: var(--hair) solid rgba(255, 255, 255, 0.35);
+  background: rgba(10, 12, 13, 0.62);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.film-controls .film-sound.is-on {
+  border-color: #fff;
+}
+
+.film-controls button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+@media (hover: hover) {
+  .film-controls button:hover {
+    border-color: #fff;
+    background: rgba(10, 12, 13, 0.82);
+  }
+}
+
+.film-body h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 500;
+}
+
+.film-body > p:not(.project-meta) {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+@media (pointer: coarse) {
+  .film-controls button {
+    min-height: 32px;
+    padding: 6px 10px;
+  }
+}
+
 /* contact */
 
 .contact-links {
